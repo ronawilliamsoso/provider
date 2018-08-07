@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcg.provider.dao.ContractAuthorizationDao" >
+  <resultMap id="BaseResultMap" type="com.vcg.provider.model.ContractAuthorization" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="contract_id" property="contractId" jdbcType="INTEGER" />
+    <result column="product_code" property="productCode" jdbcType="VARCHAR" />
+    <result column="asset_type" property="assetType" jdbcType="INTEGER" />
+    <result column="authorization_type" property="authorizationType" jdbcType="INTEGER" />
+    <result column="exclusive_type" property="exclusiveType" jdbcType="INTEGER" />
+    <result column="fencheng_rate" property="fenchengRate" jdbcType="VARCHAR" />
+    <result column="have_uuright" property="haveUuright" jdbcType="INTEGER" />
+    <result column="cut_cost" property="cutCost" jdbcType="INTEGER" />
+    <result column="product_status" property="productStatus" jdbcType="INTEGER" />
+    <result column="authstatus" property="authstatus" jdbcType="INTEGER" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, contract_id, product_code, asset_type, authorization_type, exclusive_type, fencheng_rate, 
+    have_uuright, cut_cost, product_status, authstatus, comment, created_time, created_by, 
+    updated_time, updated_by
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.vcg.provider.model.query.ContractAuthorizationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List_Dy" />
+    from contract_authorization
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from contract_authorization
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from contract_authorization
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.vcg.provider.model.query.ContractAuthorizationExample" >
+    delete from contract_authorization
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.vcg.provider.model.ContractAuthorization" useGeneratedKeys="true" keyProperty="id" >
+    insert into contract_authorization (id, contract_id, product_code, 
+      asset_type, authorization_type, exclusive_type, 
+      fencheng_rate, have_uuright, cut_cost, 
+      product_status, authstatus, comment, 
+      created_time, created_by, updated_time, 
+      updated_by)
+    values (#{id,jdbcType=INTEGER}, #{contractId,jdbcType=INTEGER}, #{productCode,jdbcType=VARCHAR}, 
+      #{assetType,jdbcType=INTEGER}, #{authorizationType,jdbcType=INTEGER}, #{exclusiveType,jdbcType=INTEGER}, 
+      #{fenchengRate,jdbcType=VARCHAR}, #{haveUuright,jdbcType=INTEGER}, #{cutCost,jdbcType=INTEGER}, 
+      #{productStatus,jdbcType=INTEGER}, #{authstatus,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR}, 
+      #{createdTime,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP}, 
+      #{updatedBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vcg.provider.model.ContractAuthorization" useGeneratedKeys="true" keyProperty="id" >
+    insert into contract_authorization
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="contractId != null" >
+        contract_id,
+      </if>
+      <if test="productCode != null" >
+        product_code,
+      </if>
+      <if test="assetType != null" >
+        asset_type,
+      </if>
+      <if test="authorizationType != null" >
+        authorization_type,
+      </if>
+      <if test="exclusiveType != null" >
+        exclusive_type,
+      </if>
+      <if test="fenchengRate != null" >
+        fencheng_rate,
+      </if>
+      <if test="haveUuright != null" >
+        have_uuright,
+      </if>
+      <if test="cutCost != null" >
+        cut_cost,
+      </if>
+      <if test="productStatus != null" >
+        product_status,
+      </if>
+      <if test="authstatus != null" >
+        authstatus,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="updatedBy != null" >
+        updated_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="contractId != null" >
+        #{contractId,jdbcType=INTEGER},
+      </if>
+      <if test="productCode != null" >
+        #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="assetType != null" >
+        #{assetType,jdbcType=INTEGER},
+      </if>
+      <if test="authorizationType != null" >
+        #{authorizationType,jdbcType=INTEGER},
+      </if>
+      <if test="exclusiveType != null" >
+        #{exclusiveType,jdbcType=INTEGER},
+      </if>
+      <if test="fenchengRate != null" >
+        #{fenchengRate,jdbcType=VARCHAR},
+      </if>
+      <if test="haveUuright != null" >
+        #{haveUuright,jdbcType=INTEGER},
+      </if>
+      <if test="cutCost != null" >
+        #{cutCost,jdbcType=INTEGER},
+      </if>
+      <if test="productStatus != null" >
+        #{productStatus,jdbcType=INTEGER},
+      </if>
+      <if test="authstatus != null" >
+        #{authstatus,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" resultType="java.lang.Integer" parameterType="com.vcg.provider.model.query.ContractAuthorizationExample" >
+    select count(*) from contract_authorization
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update contract_authorization
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.contractId != null" >
+        contract_id = #{record.contractId,jdbcType=INTEGER},
+      </if>
+      <if test="record.productCode != null" >
+        product_code = #{record.productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assetType != null" >
+        asset_type = #{record.assetType,jdbcType=INTEGER},
+      </if>
+      <if test="record.authorizationType != null" >
+        authorization_type = #{record.authorizationType,jdbcType=INTEGER},
+      </if>
+      <if test="record.exclusiveType != null" >
+        exclusive_type = #{record.exclusiveType,jdbcType=INTEGER},
+      </if>
+      <if test="record.fenchengRate != null" >
+        fencheng_rate = #{record.fenchengRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.haveUuright != null" >
+        have_uuright = #{record.haveUuright,jdbcType=INTEGER},
+      </if>
+      <if test="record.cutCost != null" >
+        cut_cost = #{record.cutCost,jdbcType=INTEGER},
+      </if>
+      <if test="record.productStatus != null" >
+        product_status = #{record.productStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.authstatus != null" >
+        authstatus = #{record.authstatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.comment != null" >
+        comment = #{record.comment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdTime != null" >
+        created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdBy != null" >
+        created_by = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedTime != null" >
+        updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedBy != null" >
+        updated_by = #{record.updatedBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update contract_authorization
+    set id = #{record.id,jdbcType=INTEGER},
+      contract_id = #{record.contractId,jdbcType=INTEGER},
+      product_code = #{record.productCode,jdbcType=VARCHAR},
+      asset_type = #{record.assetType,jdbcType=INTEGER},
+      authorization_type = #{record.authorizationType,jdbcType=INTEGER},
+      exclusive_type = #{record.exclusiveType,jdbcType=INTEGER},
+      fencheng_rate = #{record.fenchengRate,jdbcType=VARCHAR},
+      have_uuright = #{record.haveUuright,jdbcType=INTEGER},
+      cut_cost = #{record.cutCost,jdbcType=INTEGER},
+      product_status = #{record.productStatus,jdbcType=INTEGER},
+      authstatus = #{record.authstatus,jdbcType=INTEGER},
+      comment = #{record.comment,jdbcType=VARCHAR},
+      created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      created_by = #{record.createdBy,jdbcType=VARCHAR},
+      updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      updated_by = #{record.updatedBy,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vcg.provider.model.ContractAuthorization" >
+    update contract_authorization
+    <set >
+      <if test="contractId != null" >
+        contract_id = #{contractId,jdbcType=INTEGER},
+      </if>
+      <if test="productCode != null" >
+        product_code = #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="assetType != null" >
+        asset_type = #{assetType,jdbcType=INTEGER},
+      </if>
+      <if test="authorizationType != null" >
+        authorization_type = #{authorizationType,jdbcType=INTEGER},
+      </if>
+      <if test="exclusiveType != null" >
+        exclusive_type = #{exclusiveType,jdbcType=INTEGER},
+      </if>
+      <if test="fenchengRate != null" >
+        fencheng_rate = #{fenchengRate,jdbcType=VARCHAR},
+      </if>
+      <if test="haveUuright != null" >
+        have_uuright = #{haveUuright,jdbcType=INTEGER},
+      </if>
+      <if test="cutCost != null" >
+        cut_cost = #{cutCost,jdbcType=INTEGER},
+      </if>
+      <if test="productStatus != null" >
+        product_status = #{productStatus,jdbcType=INTEGER},
+      </if>
+      <if test="authstatus != null" >
+        authstatus = #{authstatus,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vcg.provider.model.ContractAuthorization" >
+    update contract_authorization
+    set contract_id = #{contractId,jdbcType=INTEGER},
+      product_code = #{productCode,jdbcType=VARCHAR},
+      asset_type = #{assetType,jdbcType=INTEGER},
+      authorization_type = #{authorizationType,jdbcType=INTEGER},
+      exclusive_type = #{exclusiveType,jdbcType=INTEGER},
+      fencheng_rate = #{fenchengRate,jdbcType=VARCHAR},
+      have_uuright = #{haveUuright,jdbcType=INTEGER},
+      cut_cost = #{cutCost,jdbcType=INTEGER},
+      product_status = #{productStatus,jdbcType=INTEGER},
+      authstatus = #{authstatus,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <sql id="Base_Column_List_Dy" >
+    <if test="fields==null" >
+      <include refid="Base_Column_List" />
+    </if>
+    <if test="fields!=null" >
+      <foreach collection="fields" item="field" separator="," >
+        ${field}
+      </foreach>
+    </if>
+  </sql>
+</mapper>

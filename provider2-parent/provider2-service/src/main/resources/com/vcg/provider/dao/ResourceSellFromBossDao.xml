@@ -1,0 +1,713 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcg.provider.dao.ResourceSellFromBossDao" >
+  <resultMap id="BaseResultMap" type="com.vcg.provider.model.ResourceSellFromBoss" >
+    <id column="bill_detail_id" property="billDetailId" jdbcType="VARCHAR" />
+    <result column="res_id" property="resId" jdbcType="VARCHAR" />
+    <result column="asset_family" property="assetFamily" jdbcType="INTEGER" />
+    <result column="currency_code" property="currencyCode" jdbcType="VARCHAR" />
+    <result column="sell_price" property="sellPrice" jdbcType="DECIMAL" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="net_share" property="netShare" jdbcType="DECIMAL" />
+    <result column="royalty_rate" property="royaltyRate" jdbcType="DECIMAL" />
+    <result column="provider_id" property="providerId" jdbcType="INTEGER" />
+    <result column="provider_name" property="providerName" jdbcType="VARCHAR" />
+    <result column="invoice_number" property="invoiceNumber" jdbcType="VARCHAR" />
+    <result column="territory_id" property="territoryId" jdbcType="VARCHAR" />
+    <result column="client_type" property="clientType" jdbcType="VARCHAR" />
+    <result column="client_cn" property="clientCn" jdbcType="VARCHAR" />
+    <result column="client_en" property="clientEn" jdbcType="VARCHAR" />
+    <result column="finaluser_cn" property="finaluserCn" jdbcType="VARCHAR" />
+    <result column="industry_code" property="industryCode" jdbcType="VARCHAR" />
+    <result column="industry_cn" property="industryCn" jdbcType="VARCHAR" />
+    <result column="industry_en" property="industryEn" jdbcType="VARCHAR" />
+    <result column="usage_code" property="usageCode" jdbcType="VARCHAR" />
+    <result column="usage_cn" property="usageCn" jdbcType="VARCHAR" />
+    <result column="usage_en" property="usageEn" jdbcType="VARCHAR" />
+    <result column="duration" property="duration" jdbcType="INTEGER" />
+    <result column="right_start" property="rightStart" jdbcType="TIMESTAMP" />
+    <result column="right_end" property="rightEnd" jdbcType="TIMESTAMP" />
+    <result column="protection_code" property="protectionCode" jdbcType="VARCHAR" />
+    <result column="sell_region" property="sellRegion" jdbcType="VARCHAR" />
+    <result column="outbill_date" property="outbillDate" jdbcType="TIMESTAMP" />
+    <result column="photo_downloadtime" property="photoDownloadtime" jdbcType="TIMESTAMP" />
+    <result column="confirm_time" property="confirmTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="share_confirmed" property="shareConfirmed" jdbcType="VARCHAR" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    bill_detail_id, res_id, asset_family, currency_code, sell_price, price, net_share, 
+    royalty_rate, provider_id, provider_name, invoice_number, territory_id, client_type, 
+    client_cn, client_en, finaluser_cn, industry_code, industry_cn, industry_en, usage_code, 
+    usage_cn, usage_en, duration, right_start, right_end, protection_code, sell_region, 
+    outbill_date, photo_downloadtime, confirm_time, status, share_confirmed, created_time, 
+    created_by, updated_time, updated_by
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.vcg.provider.model.query.ResourceSellFromBossExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List_Dy" />
+    from resource_sell_from_boss
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from resource_sell_from_boss
+    where bill_detail_id = #{billDetailId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from resource_sell_from_boss
+    where bill_detail_id = #{billDetailId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.vcg.provider.model.query.ResourceSellFromBossExample" >
+    delete from resource_sell_from_boss
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.vcg.provider.model.ResourceSellFromBoss" useGeneratedKeys="true" keyProperty="billDetailId" >
+    insert into resource_sell_from_boss (bill_detail_id, res_id, asset_family, 
+      currency_code, sell_price, price, 
+      net_share, royalty_rate, provider_id, 
+      provider_name, invoice_number, territory_id, 
+      client_type, client_cn, client_en, 
+      finaluser_cn, industry_code, industry_cn, 
+      industry_en, usage_code, usage_cn, 
+      usage_en, duration, right_start, 
+      right_end, protection_code, sell_region, 
+      outbill_date, photo_downloadtime, confirm_time, 
+      status, share_confirmed, created_time, 
+      created_by, updated_time, updated_by
+      )
+    values (#{billDetailId,jdbcType=VARCHAR}, #{resId,jdbcType=VARCHAR}, #{assetFamily,jdbcType=INTEGER}, 
+      #{currencyCode,jdbcType=VARCHAR}, #{sellPrice,jdbcType=DECIMAL}, #{price,jdbcType=DECIMAL}, 
+      #{netShare,jdbcType=DECIMAL}, #{royaltyRate,jdbcType=DECIMAL}, #{providerId,jdbcType=INTEGER}, 
+      #{providerName,jdbcType=VARCHAR}, #{invoiceNumber,jdbcType=VARCHAR}, #{territoryId,jdbcType=VARCHAR}, 
+      #{clientType,jdbcType=VARCHAR}, #{clientCn,jdbcType=VARCHAR}, #{clientEn,jdbcType=VARCHAR}, 
+      #{finaluserCn,jdbcType=VARCHAR}, #{industryCode,jdbcType=VARCHAR}, #{industryCn,jdbcType=VARCHAR}, 
+      #{industryEn,jdbcType=VARCHAR}, #{usageCode,jdbcType=VARCHAR}, #{usageCn,jdbcType=VARCHAR}, 
+      #{usageEn,jdbcType=VARCHAR}, #{duration,jdbcType=INTEGER}, #{rightStart,jdbcType=TIMESTAMP}, 
+      #{rightEnd,jdbcType=TIMESTAMP}, #{protectionCode,jdbcType=VARCHAR}, #{sellRegion,jdbcType=VARCHAR}, 
+      #{outbillDate,jdbcType=TIMESTAMP}, #{photoDownloadtime,jdbcType=TIMESTAMP}, #{confirmTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER}, #{shareConfirmed,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{createdBy,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.vcg.provider.model.ResourceSellFromBoss" useGeneratedKeys="true" keyProperty="billDetailId" >
+    insert into resource_sell_from_boss
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="billDetailId != null" >
+        bill_detail_id,
+      </if>
+      <if test="resId != null" >
+        res_id,
+      </if>
+      <if test="assetFamily != null" >
+        asset_family,
+      </if>
+      <if test="currencyCode != null" >
+        currency_code,
+      </if>
+      <if test="sellPrice != null" >
+        sell_price,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="netShare != null" >
+        net_share,
+      </if>
+      <if test="royaltyRate != null" >
+        royalty_rate,
+      </if>
+      <if test="providerId != null" >
+        provider_id,
+      </if>
+      <if test="providerName != null" >
+        provider_name,
+      </if>
+      <if test="invoiceNumber != null" >
+        invoice_number,
+      </if>
+      <if test="territoryId != null" >
+        territory_id,
+      </if>
+      <if test="clientType != null" >
+        client_type,
+      </if>
+      <if test="clientCn != null" >
+        client_cn,
+      </if>
+      <if test="clientEn != null" >
+        client_en,
+      </if>
+      <if test="finaluserCn != null" >
+        finaluser_cn,
+      </if>
+      <if test="industryCode != null" >
+        industry_code,
+      </if>
+      <if test="industryCn != null" >
+        industry_cn,
+      </if>
+      <if test="industryEn != null" >
+        industry_en,
+      </if>
+      <if test="usageCode != null" >
+        usage_code,
+      </if>
+      <if test="usageCn != null" >
+        usage_cn,
+      </if>
+      <if test="usageEn != null" >
+        usage_en,
+      </if>
+      <if test="duration != null" >
+        duration,
+      </if>
+      <if test="rightStart != null" >
+        right_start,
+      </if>
+      <if test="rightEnd != null" >
+        right_end,
+      </if>
+      <if test="protectionCode != null" >
+        protection_code,
+      </if>
+      <if test="sellRegion != null" >
+        sell_region,
+      </if>
+      <if test="outbillDate != null" >
+        outbill_date,
+      </if>
+      <if test="photoDownloadtime != null" >
+        photo_downloadtime,
+      </if>
+      <if test="confirmTime != null" >
+        confirm_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="shareConfirmed != null" >
+        share_confirmed,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="updatedBy != null" >
+        updated_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="billDetailId != null" >
+        #{billDetailId,jdbcType=VARCHAR},
+      </if>
+      <if test="resId != null" >
+        #{resId,jdbcType=VARCHAR},
+      </if>
+      <if test="assetFamily != null" >
+        #{assetFamily,jdbcType=INTEGER},
+      </if>
+      <if test="currencyCode != null" >
+        #{currencyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sellPrice != null" >
+        #{sellPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="netShare != null" >
+        #{netShare,jdbcType=DECIMAL},
+      </if>
+      <if test="royaltyRate != null" >
+        #{royaltyRate,jdbcType=DECIMAL},
+      </if>
+      <if test="providerId != null" >
+        #{providerId,jdbcType=INTEGER},
+      </if>
+      <if test="providerName != null" >
+        #{providerName,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceNumber != null" >
+        #{invoiceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="territoryId != null" >
+        #{territoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="clientType != null" >
+        #{clientType,jdbcType=VARCHAR},
+      </if>
+      <if test="clientCn != null" >
+        #{clientCn,jdbcType=VARCHAR},
+      </if>
+      <if test="clientEn != null" >
+        #{clientEn,jdbcType=VARCHAR},
+      </if>
+      <if test="finaluserCn != null" >
+        #{finaluserCn,jdbcType=VARCHAR},
+      </if>
+      <if test="industryCode != null" >
+        #{industryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="industryCn != null" >
+        #{industryCn,jdbcType=VARCHAR},
+      </if>
+      <if test="industryEn != null" >
+        #{industryEn,jdbcType=VARCHAR},
+      </if>
+      <if test="usageCode != null" >
+        #{usageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="usageCn != null" >
+        #{usageCn,jdbcType=VARCHAR},
+      </if>
+      <if test="usageEn != null" >
+        #{usageEn,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null" >
+        #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="rightStart != null" >
+        #{rightStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rightEnd != null" >
+        #{rightEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="protectionCode != null" >
+        #{protectionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sellRegion != null" >
+        #{sellRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="outbillDate != null" >
+        #{outbillDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="photoDownloadtime != null" >
+        #{photoDownloadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="confirmTime != null" >
+        #{confirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="shareConfirmed != null" >
+        #{shareConfirmed,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" resultType="java.lang.Integer" parameterType="com.vcg.provider.model.query.ResourceSellFromBossExample" >
+    select count(*) from resource_sell_from_boss
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update resource_sell_from_boss
+    <set >
+      <if test="record.billDetailId != null" >
+        bill_detail_id = #{record.billDetailId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.resId != null" >
+        res_id = #{record.resId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assetFamily != null" >
+        asset_family = #{record.assetFamily,jdbcType=INTEGER},
+      </if>
+      <if test="record.currencyCode != null" >
+        currency_code = #{record.currencyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sellPrice != null" >
+        sell_price = #{record.sellPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.netShare != null" >
+        net_share = #{record.netShare,jdbcType=DECIMAL},
+      </if>
+      <if test="record.royaltyRate != null" >
+        royalty_rate = #{record.royaltyRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.providerId != null" >
+        provider_id = #{record.providerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.providerName != null" >
+        provider_name = #{record.providerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.invoiceNumber != null" >
+        invoice_number = #{record.invoiceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.territoryId != null" >
+        territory_id = #{record.territoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clientType != null" >
+        client_type = #{record.clientType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clientCn != null" >
+        client_cn = #{record.clientCn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clientEn != null" >
+        client_en = #{record.clientEn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finaluserCn != null" >
+        finaluser_cn = #{record.finaluserCn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industryCode != null" >
+        industry_code = #{record.industryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industryCn != null" >
+        industry_cn = #{record.industryCn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industryEn != null" >
+        industry_en = #{record.industryEn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usageCode != null" >
+        usage_code = #{record.usageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usageCn != null" >
+        usage_cn = #{record.usageCn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usageEn != null" >
+        usage_en = #{record.usageEn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.duration != null" >
+        duration = #{record.duration,jdbcType=INTEGER},
+      </if>
+      <if test="record.rightStart != null" >
+        right_start = #{record.rightStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rightEnd != null" >
+        right_end = #{record.rightEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.protectionCode != null" >
+        protection_code = #{record.protectionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sellRegion != null" >
+        sell_region = #{record.sellRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outbillDate != null" >
+        outbill_date = #{record.outbillDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.photoDownloadtime != null" >
+        photo_downloadtime = #{record.photoDownloadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.confirmTime != null" >
+        confirm_time = #{record.confirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.shareConfirmed != null" >
+        share_confirmed = #{record.shareConfirmed,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdTime != null" >
+        created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdBy != null" >
+        created_by = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedTime != null" >
+        updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedBy != null" >
+        updated_by = #{record.updatedBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update resource_sell_from_boss
+    set bill_detail_id = #{record.billDetailId,jdbcType=VARCHAR},
+      res_id = #{record.resId,jdbcType=VARCHAR},
+      asset_family = #{record.assetFamily,jdbcType=INTEGER},
+      currency_code = #{record.currencyCode,jdbcType=VARCHAR},
+      sell_price = #{record.sellPrice,jdbcType=DECIMAL},
+      price = #{record.price,jdbcType=DECIMAL},
+      net_share = #{record.netShare,jdbcType=DECIMAL},
+      royalty_rate = #{record.royaltyRate,jdbcType=DECIMAL},
+      provider_id = #{record.providerId,jdbcType=INTEGER},
+      provider_name = #{record.providerName,jdbcType=VARCHAR},
+      invoice_number = #{record.invoiceNumber,jdbcType=VARCHAR},
+      territory_id = #{record.territoryId,jdbcType=VARCHAR},
+      client_type = #{record.clientType,jdbcType=VARCHAR},
+      client_cn = #{record.clientCn,jdbcType=VARCHAR},
+      client_en = #{record.clientEn,jdbcType=VARCHAR},
+      finaluser_cn = #{record.finaluserCn,jdbcType=VARCHAR},
+      industry_code = #{record.industryCode,jdbcType=VARCHAR},
+      industry_cn = #{record.industryCn,jdbcType=VARCHAR},
+      industry_en = #{record.industryEn,jdbcType=VARCHAR},
+      usage_code = #{record.usageCode,jdbcType=VARCHAR},
+      usage_cn = #{record.usageCn,jdbcType=VARCHAR},
+      usage_en = #{record.usageEn,jdbcType=VARCHAR},
+      duration = #{record.duration,jdbcType=INTEGER},
+      right_start = #{record.rightStart,jdbcType=TIMESTAMP},
+      right_end = #{record.rightEnd,jdbcType=TIMESTAMP},
+      protection_code = #{record.protectionCode,jdbcType=VARCHAR},
+      sell_region = #{record.sellRegion,jdbcType=VARCHAR},
+      outbill_date = #{record.outbillDate,jdbcType=TIMESTAMP},
+      photo_downloadtime = #{record.photoDownloadtime,jdbcType=TIMESTAMP},
+      confirm_time = #{record.confirmTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
+      share_confirmed = #{record.shareConfirmed,jdbcType=VARCHAR},
+      created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      created_by = #{record.createdBy,jdbcType=VARCHAR},
+      updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      updated_by = #{record.updatedBy,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vcg.provider.model.ResourceSellFromBoss" >
+    update resource_sell_from_boss
+    <set >
+      <if test="resId != null" >
+        res_id = #{resId,jdbcType=VARCHAR},
+      </if>
+      <if test="assetFamily != null" >
+        asset_family = #{assetFamily,jdbcType=INTEGER},
+      </if>
+      <if test="currencyCode != null" >
+        currency_code = #{currencyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sellPrice != null" >
+        sell_price = #{sellPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="netShare != null" >
+        net_share = #{netShare,jdbcType=DECIMAL},
+      </if>
+      <if test="royaltyRate != null" >
+        royalty_rate = #{royaltyRate,jdbcType=DECIMAL},
+      </if>
+      <if test="providerId != null" >
+        provider_id = #{providerId,jdbcType=INTEGER},
+      </if>
+      <if test="providerName != null" >
+        provider_name = #{providerName,jdbcType=VARCHAR},
+      </if>
+      <if test="invoiceNumber != null" >
+        invoice_number = #{invoiceNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="territoryId != null" >
+        territory_id = #{territoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="clientType != null" >
+        client_type = #{clientType,jdbcType=VARCHAR},
+      </if>
+      <if test="clientCn != null" >
+        client_cn = #{clientCn,jdbcType=VARCHAR},
+      </if>
+      <if test="clientEn != null" >
+        client_en = #{clientEn,jdbcType=VARCHAR},
+      </if>
+      <if test="finaluserCn != null" >
+        finaluser_cn = #{finaluserCn,jdbcType=VARCHAR},
+      </if>
+      <if test="industryCode != null" >
+        industry_code = #{industryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="industryCn != null" >
+        industry_cn = #{industryCn,jdbcType=VARCHAR},
+      </if>
+      <if test="industryEn != null" >
+        industry_en = #{industryEn,jdbcType=VARCHAR},
+      </if>
+      <if test="usageCode != null" >
+        usage_code = #{usageCode,jdbcType=VARCHAR},
+      </if>
+      <if test="usageCn != null" >
+        usage_cn = #{usageCn,jdbcType=VARCHAR},
+      </if>
+      <if test="usageEn != null" >
+        usage_en = #{usageEn,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null" >
+        duration = #{duration,jdbcType=INTEGER},
+      </if>
+      <if test="rightStart != null" >
+        right_start = #{rightStart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rightEnd != null" >
+        right_end = #{rightEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="protectionCode != null" >
+        protection_code = #{protectionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sellRegion != null" >
+        sell_region = #{sellRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="outbillDate != null" >
+        outbill_date = #{outbillDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="photoDownloadtime != null" >
+        photo_downloadtime = #{photoDownloadtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="confirmTime != null" >
+        confirm_time = #{confirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="shareConfirmed != null" >
+        share_confirmed = #{shareConfirmed,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bill_detail_id = #{billDetailId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vcg.provider.model.ResourceSellFromBoss" >
+    update resource_sell_from_boss
+    set res_id = #{resId,jdbcType=VARCHAR},
+      asset_family = #{assetFamily,jdbcType=INTEGER},
+      currency_code = #{currencyCode,jdbcType=VARCHAR},
+      sell_price = #{sellPrice,jdbcType=DECIMAL},
+      price = #{price,jdbcType=DECIMAL},
+      net_share = #{netShare,jdbcType=DECIMAL},
+      royalty_rate = #{royaltyRate,jdbcType=DECIMAL},
+      provider_id = #{providerId,jdbcType=INTEGER},
+      provider_name = #{providerName,jdbcType=VARCHAR},
+      invoice_number = #{invoiceNumber,jdbcType=VARCHAR},
+      territory_id = #{territoryId,jdbcType=VARCHAR},
+      client_type = #{clientType,jdbcType=VARCHAR},
+      client_cn = #{clientCn,jdbcType=VARCHAR},
+      client_en = #{clientEn,jdbcType=VARCHAR},
+      finaluser_cn = #{finaluserCn,jdbcType=VARCHAR},
+      industry_code = #{industryCode,jdbcType=VARCHAR},
+      industry_cn = #{industryCn,jdbcType=VARCHAR},
+      industry_en = #{industryEn,jdbcType=VARCHAR},
+      usage_code = #{usageCode,jdbcType=VARCHAR},
+      usage_cn = #{usageCn,jdbcType=VARCHAR},
+      usage_en = #{usageEn,jdbcType=VARCHAR},
+      duration = #{duration,jdbcType=INTEGER},
+      right_start = #{rightStart,jdbcType=TIMESTAMP},
+      right_end = #{rightEnd,jdbcType=TIMESTAMP},
+      protection_code = #{protectionCode,jdbcType=VARCHAR},
+      sell_region = #{sellRegion,jdbcType=VARCHAR},
+      outbill_date = #{outbillDate,jdbcType=TIMESTAMP},
+      photo_downloadtime = #{photoDownloadtime,jdbcType=TIMESTAMP},
+      confirm_time = #{confirmTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      share_confirmed = #{shareConfirmed,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=VARCHAR}
+    where bill_detail_id = #{billDetailId,jdbcType=VARCHAR}
+  </update>
+  <sql id="Base_Column_List_Dy" >
+    <if test="fields==null" >
+      <include refid="Base_Column_List" />
+    </if>
+    <if test="fields!=null" >
+      <foreach collection="fields" item="field" separator="," >
+        ${field}
+      </foreach>
+    </if>
+  </sql>
+</mapper>

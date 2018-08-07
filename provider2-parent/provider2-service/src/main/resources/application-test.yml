@@ -1,0 +1,51 @@
+
+spring:
+  #datasource
+  datasource:
+    name: test
+#    url: jdbc:mysql://zrpc5.wuyu.pub:3306/provider_bak?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+#    username: root
+#    password: user_center320675
+#    url: jdbc:mysql://192.168.3.160:3306/provider?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+#    username: dev_provider
+#    password: dev@pvd123
+#    url: jdbc:mysql://rm-2zeum12f152n33c46o.mysql.rds.aliyuncs.com:3306/provider?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+#    username: photo
+#    password: b3bPVU8W
+    url: jdbc:mysql://192.168.3.160:3306/provider2?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+    username: dev_provider
+    password: dev@pvd123
+    maxActive: 200
+    initialSize: 2
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+    
+  redis: 
+    host: 192.168.3.204
+#    password: Xbr8wauj
+    port: 6379
+    pool:
+      max-idle: 8
+      min-idle: 0
+      max-active: 8
+      max-wait: -1
+      
+custom:
+  htmlExeUrl: wkhtmltopdf
+  pdfout: /media/providerstamp/
+  sigout: /media/providerstamp/done/
+  signaturepfx: /media/providerstamp/signature/iSignature.pfx
+  signatureunitrustkey: /media/providerstamp/unitrust/unitrust.key
+  signaturetemp: /media/providerstamp/temp
+  cutpictures: /media/providerstamp/temp    
+  
+drewdatajob:
+    shouldStartJob: 1 #0开发环境 1测试环境 1:生产环境  

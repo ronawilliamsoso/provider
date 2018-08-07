@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcg.provider.dao.ContractDao" >
+  <resultMap id="BaseResultMap" type="com.vcg.provider.model.Contract" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="asset_family" property="assetFamily" jdbcType="INTEGER" />
+    <result column="contract_code" property="contractCode" jdbcType="VARCHAR" />
+    <result column="provider_id" property="providerId" jdbcType="INTEGER" />
+    <result column="payment_id" property="paymentId" jdbcType="INTEGER" />
+    <result column="party_b" property="partyB" jdbcType="VARCHAR" />
+    <result column="contract_type" property="contractType" jdbcType="INTEGER" />
+    <result column="contract_name" property="contractName" jdbcType="VARCHAR" />
+    <result column="deadline" property="deadline" jdbcType="VARCHAR" />
+    <result column="sign_date" property="signDate" jdbcType="DATE" />
+    <result column="begin_date" property="beginDate" jdbcType="DATE" />
+    <result column="end_date" property="endDate" jdbcType="DATE" />
+    <result column="bond" property="bond" jdbcType="VARCHAR" />
+    <result column="settlement_cycle" property="settlementCycle" jdbcType="VARCHAR" />
+    <result column="contract_status" property="contractStatus" jdbcType="INTEGER" />
+    <result column="contract_pdf_path" property="contractPdfPath" jdbcType="VARCHAR" />
+    <result column="credit_line" property="creditLine" jdbcType="VARCHAR" />
+    <result column="party_a" property="partyA" jdbcType="VARCHAR" />
+    <result column="electronic_stamp" property="electronicStamp" jdbcType="VARCHAR" />
+    <result column="exclusive_auth" property="exclusiveAuth" jdbcType="INTEGER" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="left_days" property="leftDays" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="edit_rate" property="editRate" jdbcType="VARCHAR" />
+    <result column="creative_rate" property="creativeRate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, asset_family, contract_code, provider_id, payment_id, party_b, contract_type, 
+    contract_name, deadline, sign_date, begin_date, end_date, bond, settlement_cycle, 
+    contract_status, contract_pdf_path, credit_line, party_a, electronic_stamp, exclusive_auth, 
+    comment, left_days, created_time, created_by, updated_time, updated_by, edit_rate, 
+    creative_rate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.vcg.provider.model.query.ContractExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List_Dy" />
+    from contract
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from contract
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from contract
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.vcg.provider.model.query.ContractExample" >
+    delete from contract
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.vcg.provider.model.Contract" useGeneratedKeys="true" keyProperty="id" >
+    insert into contract (id, asset_family, contract_code, 
+      provider_id, payment_id, party_b, 
+      contract_type, contract_name, deadline, 
+      sign_date, begin_date, end_date, 
+      bond, settlement_cycle, contract_status, 
+      contract_pdf_path, credit_line, party_a, 
+      electronic_stamp, exclusive_auth, comment, 
+      left_days, created_time, created_by, 
+      updated_time, updated_by, edit_rate, 
+      creative_rate)
+    values (#{id,jdbcType=INTEGER}, #{assetFamily,jdbcType=INTEGER}, #{contractCode,jdbcType=VARCHAR}, 
+      #{providerId,jdbcType=INTEGER}, #{paymentId,jdbcType=INTEGER}, #{partyB,jdbcType=VARCHAR}, 
+      #{contractType,jdbcType=INTEGER}, #{contractName,jdbcType=VARCHAR}, #{deadline,jdbcType=VARCHAR}, 
+      #{signDate,jdbcType=DATE}, #{beginDate,jdbcType=DATE}, #{endDate,jdbcType=DATE}, 
+      #{bond,jdbcType=VARCHAR}, #{settlementCycle,jdbcType=VARCHAR}, #{contractStatus,jdbcType=INTEGER}, 
+      #{contractPdfPath,jdbcType=VARCHAR}, #{creditLine,jdbcType=VARCHAR}, #{partyA,jdbcType=VARCHAR}, 
+      #{electronicStamp,jdbcType=VARCHAR}, #{exclusiveAuth,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR}, 
+      #{leftDays,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=VARCHAR}, 
+      #{updatedTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}, #{editRate,jdbcType=VARCHAR}, 
+      #{creativeRate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vcg.provider.model.Contract" useGeneratedKeys="true" keyProperty="id" >
+    insert into contract
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="assetFamily != null" >
+        asset_family,
+      </if>
+      <if test="contractCode != null" >
+        contract_code,
+      </if>
+      <if test="providerId != null" >
+        provider_id,
+      </if>
+      <if test="paymentId != null" >
+        payment_id,
+      </if>
+      <if test="partyB != null" >
+        party_b,
+      </if>
+      <if test="contractType != null" >
+        contract_type,
+      </if>
+      <if test="contractName != null" >
+        contract_name,
+      </if>
+      <if test="deadline != null" >
+        deadline,
+      </if>
+      <if test="signDate != null" >
+        sign_date,
+      </if>
+      <if test="beginDate != null" >
+        begin_date,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+      <if test="bond != null" >
+        bond,
+      </if>
+      <if test="settlementCycle != null" >
+        settlement_cycle,
+      </if>
+      <if test="contractStatus != null" >
+        contract_status,
+      </if>
+      <if test="contractPdfPath != null" >
+        contract_pdf_path,
+      </if>
+      <if test="creditLine != null" >
+        credit_line,
+      </if>
+      <if test="partyA != null" >
+        party_a,
+      </if>
+      <if test="electronicStamp != null" >
+        electronic_stamp,
+      </if>
+      <if test="exclusiveAuth != null" >
+        exclusive_auth,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="leftDays != null" >
+        left_days,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="updatedBy != null" >
+        updated_by,
+      </if>
+      <if test="editRate != null" >
+        edit_rate,
+      </if>
+      <if test="creativeRate != null" >
+        creative_rate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="assetFamily != null" >
+        #{assetFamily,jdbcType=INTEGER},
+      </if>
+      <if test="contractCode != null" >
+        #{contractCode,jdbcType=VARCHAR},
+      </if>
+      <if test="providerId != null" >
+        #{providerId,jdbcType=INTEGER},
+      </if>
+      <if test="paymentId != null" >
+        #{paymentId,jdbcType=INTEGER},
+      </if>
+      <if test="partyB != null" >
+        #{partyB,jdbcType=VARCHAR},
+      </if>
+      <if test="contractType != null" >
+        #{contractType,jdbcType=INTEGER},
+      </if>
+      <if test="contractName != null" >
+        #{contractName,jdbcType=VARCHAR},
+      </if>
+      <if test="deadline != null" >
+        #{deadline,jdbcType=VARCHAR},
+      </if>
+      <if test="signDate != null" >
+        #{signDate,jdbcType=DATE},
+      </if>
+      <if test="beginDate != null" >
+        #{beginDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=DATE},
+      </if>
+      <if test="bond != null" >
+        #{bond,jdbcType=VARCHAR},
+      </if>
+      <if test="settlementCycle != null" >
+        #{settlementCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="contractStatus != null" >
+        #{contractStatus,jdbcType=INTEGER},
+      </if>
+      <if test="contractPdfPath != null" >
+        #{contractPdfPath,jdbcType=VARCHAR},
+      </if>
+      <if test="creditLine != null" >
+        #{creditLine,jdbcType=VARCHAR},
+      </if>
+      <if test="partyA != null" >
+        #{partyA,jdbcType=VARCHAR},
+      </if>
+      <if test="electronicStamp != null" >
+        #{electronicStamp,jdbcType=VARCHAR},
+      </if>
+      <if test="exclusiveAuth != null" >
+        #{exclusiveAuth,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="leftDays != null" >
+        #{leftDays,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="editRate != null" >
+        #{editRate,jdbcType=VARCHAR},
+      </if>
+      <if test="creativeRate != null" >
+        #{creativeRate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" resultType="java.lang.Integer" parameterType="com.vcg.provider.model.query.ContractExample" >
+    select count(*) from contract
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update contract
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.assetFamily != null" >
+        asset_family = #{record.assetFamily,jdbcType=INTEGER},
+      </if>
+      <if test="record.contractCode != null" >
+        contract_code = #{record.contractCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.providerId != null" >
+        provider_id = #{record.providerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.paymentId != null" >
+        payment_id = #{record.paymentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.partyB != null" >
+        party_b = #{record.partyB,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractType != null" >
+        contract_type = #{record.contractType,jdbcType=INTEGER},
+      </if>
+      <if test="record.contractName != null" >
+        contract_name = #{record.contractName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deadline != null" >
+        deadline = #{record.deadline,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signDate != null" >
+        sign_date = #{record.signDate,jdbcType=DATE},
+      </if>
+      <if test="record.beginDate != null" >
+        begin_date = #{record.beginDate,jdbcType=DATE},
+      </if>
+      <if test="record.endDate != null" >
+        end_date = #{record.endDate,jdbcType=DATE},
+      </if>
+      <if test="record.bond != null" >
+        bond = #{record.bond,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settlementCycle != null" >
+        settlement_cycle = #{record.settlementCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractStatus != null" >
+        contract_status = #{record.contractStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.contractPdfPath != null" >
+        contract_pdf_path = #{record.contractPdfPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creditLine != null" >
+        credit_line = #{record.creditLine,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partyA != null" >
+        party_a = #{record.partyA,jdbcType=VARCHAR},
+      </if>
+      <if test="record.electronicStamp != null" >
+        electronic_stamp = #{record.electronicStamp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exclusiveAuth != null" >
+        exclusive_auth = #{record.exclusiveAuth,jdbcType=INTEGER},
+      </if>
+      <if test="record.comment != null" >
+        comment = #{record.comment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.leftDays != null" >
+        left_days = #{record.leftDays,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdTime != null" >
+        created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdBy != null" >
+        created_by = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedTime != null" >
+        updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedBy != null" >
+        updated_by = #{record.updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.editRate != null" >
+        edit_rate = #{record.editRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creativeRate != null" >
+        creative_rate = #{record.creativeRate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update contract
+    set id = #{record.id,jdbcType=INTEGER},
+      asset_family = #{record.assetFamily,jdbcType=INTEGER},
+      contract_code = #{record.contractCode,jdbcType=VARCHAR},
+      provider_id = #{record.providerId,jdbcType=INTEGER},
+      payment_id = #{record.paymentId,jdbcType=INTEGER},
+      party_b = #{record.partyB,jdbcType=VARCHAR},
+      contract_type = #{record.contractType,jdbcType=INTEGER},
+      contract_name = #{record.contractName,jdbcType=VARCHAR},
+      deadline = #{record.deadline,jdbcType=VARCHAR},
+      sign_date = #{record.signDate,jdbcType=DATE},
+      begin_date = #{record.beginDate,jdbcType=DATE},
+      end_date = #{record.endDate,jdbcType=DATE},
+      bond = #{record.bond,jdbcType=VARCHAR},
+      settlement_cycle = #{record.settlementCycle,jdbcType=VARCHAR},
+      contract_status = #{record.contractStatus,jdbcType=INTEGER},
+      contract_pdf_path = #{record.contractPdfPath,jdbcType=VARCHAR},
+      credit_line = #{record.creditLine,jdbcType=VARCHAR},
+      party_a = #{record.partyA,jdbcType=VARCHAR},
+      electronic_stamp = #{record.electronicStamp,jdbcType=VARCHAR},
+      exclusive_auth = #{record.exclusiveAuth,jdbcType=INTEGER},
+      comment = #{record.comment,jdbcType=VARCHAR},
+      left_days = #{record.leftDays,jdbcType=INTEGER},
+      created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      created_by = #{record.createdBy,jdbcType=VARCHAR},
+      updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      updated_by = #{record.updatedBy,jdbcType=VARCHAR},
+      edit_rate = #{record.editRate,jdbcType=VARCHAR},
+      creative_rate = #{record.creativeRate,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vcg.provider.model.Contract" >
+    update contract
+    <set >
+      <if test="assetFamily != null" >
+        asset_family = #{assetFamily,jdbcType=INTEGER},
+      </if>
+      <if test="contractCode != null" >
+        contract_code = #{contractCode,jdbcType=VARCHAR},
+      </if>
+      <if test="providerId != null" >
+        provider_id = #{providerId,jdbcType=INTEGER},
+      </if>
+      <if test="paymentId != null" >
+        payment_id = #{paymentId,jdbcType=INTEGER},
+      </if>
+      <if test="partyB != null" >
+        party_b = #{partyB,jdbcType=VARCHAR},
+      </if>
+      <if test="contractType != null" >
+        contract_type = #{contractType,jdbcType=INTEGER},
+      </if>
+      <if test="contractName != null" >
+        contract_name = #{contractName,jdbcType=VARCHAR},
+      </if>
+      <if test="deadline != null" >
+        deadline = #{deadline,jdbcType=VARCHAR},
+      </if>
+      <if test="signDate != null" >
+        sign_date = #{signDate,jdbcType=DATE},
+      </if>
+      <if test="beginDate != null" >
+        begin_date = #{beginDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=DATE},
+      </if>
+      <if test="bond != null" >
+        bond = #{bond,jdbcType=VARCHAR},
+      </if>
+      <if test="settlementCycle != null" >
+        settlement_cycle = #{settlementCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="contractStatus != null" >
+        contract_status = #{contractStatus,jdbcType=INTEGER},
+      </if>
+      <if test="contractPdfPath != null" >
+        contract_pdf_path = #{contractPdfPath,jdbcType=VARCHAR},
+      </if>
+      <if test="creditLine != null" >
+        credit_line = #{creditLine,jdbcType=VARCHAR},
+      </if>
+      <if test="partyA != null" >
+        party_a = #{partyA,jdbcType=VARCHAR},
+      </if>
+      <if test="electronicStamp != null" >
+        electronic_stamp = #{electronicStamp,jdbcType=VARCHAR},
+      </if>
+      <if test="exclusiveAuth != null" >
+        exclusive_auth = #{exclusiveAuth,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="leftDays != null" >
+        left_days = #{leftDays,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="editRate != null" >
+        edit_rate = #{editRate,jdbcType=VARCHAR},
+      </if>
+      <if test="creativeRate != null" >
+        creative_rate = #{creativeRate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vcg.provider.model.Contract" >
+    update contract
+    set asset_family = #{assetFamily,jdbcType=INTEGER},
+      contract_code = #{contractCode,jdbcType=VARCHAR},
+      provider_id = #{providerId,jdbcType=INTEGER},
+      payment_id = #{paymentId,jdbcType=INTEGER},
+      party_b = #{partyB,jdbcType=VARCHAR},
+      contract_type = #{contractType,jdbcType=INTEGER},
+      contract_name = #{contractName,jdbcType=VARCHAR},
+      deadline = #{deadline,jdbcType=VARCHAR},
+      sign_date = #{signDate,jdbcType=DATE},
+      begin_date = #{beginDate,jdbcType=DATE},
+      end_date = #{endDate,jdbcType=DATE},
+      bond = #{bond,jdbcType=VARCHAR},
+      settlement_cycle = #{settlementCycle,jdbcType=VARCHAR},
+      contract_status = #{contractStatus,jdbcType=INTEGER},
+      contract_pdf_path = #{contractPdfPath,jdbcType=VARCHAR},
+      credit_line = #{creditLine,jdbcType=VARCHAR},
+      party_a = #{partyA,jdbcType=VARCHAR},
+      electronic_stamp = #{electronicStamp,jdbcType=VARCHAR},
+      exclusive_auth = #{exclusiveAuth,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=VARCHAR},
+      left_days = #{leftDays,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=VARCHAR},
+      edit_rate = #{editRate,jdbcType=VARCHAR},
+      creative_rate = #{creativeRate,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <sql id="Base_Column_List_Dy" >
+    <if test="fields==null" >
+      <include refid="Base_Column_List" />
+    </if>
+    <if test="fields!=null" >
+      <foreach collection="fields" item="field" separator="," >
+        ${field}
+      </foreach>
+    </if>
+  </sql>
+</mapper>

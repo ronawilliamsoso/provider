@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcg.provider.dao.BrandDao" >
+  <resultMap id="BaseResultMap" type="com.vcg.provider.model.Brand" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    <result column="collection_number" property="collectionNumber" jdbcType="INTEGER" />
+    <result column="brand_status" property="brandStatus" jdbcType="INTEGER" />
+    <result column="hiden_status" property="hidenStatus" jdbcType="INTEGER" />
+    <result column="asset_family" property="assetFamily" jdbcType="INTEGER" />
+    <result column="asset_type" property="assetType" jdbcType="INTEGER" />
+    <result column="license_type" property="licenseType" jdbcType="INTEGER" />
+    <result column="pin_yin" property="pinYin" jdbcType="VARCHAR" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, brand_name, collection_number, brand_status, hiden_status, asset_family, asset_type, 
+    license_type, pin_yin, created_time, created_by, updated_time, updated_by, comment
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.vcg.provider.model.query.BrandExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List_Dy" />
+    from brand
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from brand
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from brand
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.vcg.provider.model.query.BrandExample" >
+    delete from brand
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.vcg.provider.model.Brand" useGeneratedKeys="true" keyProperty="id" >
+    insert into brand (id, brand_name, collection_number, 
+      brand_status, hiden_status, asset_family, 
+      asset_type, license_type, pin_yin, 
+      created_time, created_by, updated_time, 
+      updated_by, comment)
+    values (#{id,jdbcType=INTEGER}, #{brandName,jdbcType=VARCHAR}, #{collectionNumber,jdbcType=INTEGER}, 
+      #{brandStatus,jdbcType=INTEGER}, #{hidenStatus,jdbcType=INTEGER}, #{assetFamily,jdbcType=INTEGER}, 
+      #{assetType,jdbcType=INTEGER}, #{licenseType,jdbcType=INTEGER}, #{pinYin,jdbcType=VARCHAR}, 
+      #{createdTime,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP}, 
+      #{updatedBy,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vcg.provider.model.Brand" useGeneratedKeys="true" keyProperty="id" >
+    insert into brand
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="brandName != null" >
+        brand_name,
+      </if>
+      <if test="collectionNumber != null" >
+        collection_number,
+      </if>
+      <if test="brandStatus != null" >
+        brand_status,
+      </if>
+      <if test="hidenStatus != null" >
+        hiden_status,
+      </if>
+      <if test="assetFamily != null" >
+        asset_family,
+      </if>
+      <if test="assetType != null" >
+        asset_type,
+      </if>
+      <if test="licenseType != null" >
+        license_type,
+      </if>
+      <if test="pinYin != null" >
+        pin_yin,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="updatedBy != null" >
+        updated_by,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="brandName != null" >
+        #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionNumber != null" >
+        #{collectionNumber,jdbcType=INTEGER},
+      </if>
+      <if test="brandStatus != null" >
+        #{brandStatus,jdbcType=INTEGER},
+      </if>
+      <if test="hidenStatus != null" >
+        #{hidenStatus,jdbcType=INTEGER},
+      </if>
+      <if test="assetFamily != null" >
+        #{assetFamily,jdbcType=INTEGER},
+      </if>
+      <if test="assetType != null" >
+        #{assetType,jdbcType=INTEGER},
+      </if>
+      <if test="licenseType != null" >
+        #{licenseType,jdbcType=INTEGER},
+      </if>
+      <if test="pinYin != null" >
+        #{pinYin,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" resultType="java.lang.Integer" parameterType="com.vcg.provider.model.query.BrandExample" >
+    select count(*) from brand
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update brand
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.brandName != null" >
+        brand_name = #{record.brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collectionNumber != null" >
+        collection_number = #{record.collectionNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.brandStatus != null" >
+        brand_status = #{record.brandStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.hidenStatus != null" >
+        hiden_status = #{record.hidenStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.assetFamily != null" >
+        asset_family = #{record.assetFamily,jdbcType=INTEGER},
+      </if>
+      <if test="record.assetType != null" >
+        asset_type = #{record.assetType,jdbcType=INTEGER},
+      </if>
+      <if test="record.licenseType != null" >
+        license_type = #{record.licenseType,jdbcType=INTEGER},
+      </if>
+      <if test="record.pinYin != null" >
+        pin_yin = #{record.pinYin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdTime != null" >
+        created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdBy != null" >
+        created_by = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedTime != null" >
+        updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedBy != null" >
+        updated_by = #{record.updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comment != null" >
+        comment = #{record.comment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update brand
+    set id = #{record.id,jdbcType=INTEGER},
+      brand_name = #{record.brandName,jdbcType=VARCHAR},
+      collection_number = #{record.collectionNumber,jdbcType=INTEGER},
+      brand_status = #{record.brandStatus,jdbcType=INTEGER},
+      hiden_status = #{record.hidenStatus,jdbcType=INTEGER},
+      asset_family = #{record.assetFamily,jdbcType=INTEGER},
+      asset_type = #{record.assetType,jdbcType=INTEGER},
+      license_type = #{record.licenseType,jdbcType=INTEGER},
+      pin_yin = #{record.pinYin,jdbcType=VARCHAR},
+      created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      created_by = #{record.createdBy,jdbcType=VARCHAR},
+      updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      updated_by = #{record.updatedBy,jdbcType=VARCHAR},
+      comment = #{record.comment,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vcg.provider.model.Brand" >
+    update brand
+    <set >
+      <if test="brandName != null" >
+        brand_name = #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionNumber != null" >
+        collection_number = #{collectionNumber,jdbcType=INTEGER},
+      </if>
+      <if test="brandStatus != null" >
+        brand_status = #{brandStatus,jdbcType=INTEGER},
+      </if>
+      <if test="hidenStatus != null" >
+        hiden_status = #{hidenStatus,jdbcType=INTEGER},
+      </if>
+      <if test="assetFamily != null" >
+        asset_family = #{assetFamily,jdbcType=INTEGER},
+      </if>
+      <if test="assetType != null" >
+        asset_type = #{assetType,jdbcType=INTEGER},
+      </if>
+      <if test="licenseType != null" >
+        license_type = #{licenseType,jdbcType=INTEGER},
+      </if>
+      <if test="pinYin != null" >
+        pin_yin = #{pinYin,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vcg.provider.model.Brand" >
+    update brand
+    set brand_name = #{brandName,jdbcType=VARCHAR},
+      collection_number = #{collectionNumber,jdbcType=INTEGER},
+      brand_status = #{brandStatus,jdbcType=INTEGER},
+      hiden_status = #{hidenStatus,jdbcType=INTEGER},
+      asset_family = #{assetFamily,jdbcType=INTEGER},
+      asset_type = #{assetType,jdbcType=INTEGER},
+      license_type = #{licenseType,jdbcType=INTEGER},
+      pin_yin = #{pinYin,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <sql id="Base_Column_List_Dy" >
+    <if test="fields==null" >
+      <include refid="Base_Column_List" />
+    </if>
+    <if test="fields!=null" >
+      <foreach collection="fields" item="field" separator="," >
+        ${field}
+      </foreach>
+    </if>
+  </sql>
+</mapper>

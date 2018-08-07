@@ -1,0 +1,131 @@
+#server
+server:
+  port: 6006
+  tomcat:
+     uri-encoding: UTF-8
+     max-threads: 800
+
+#multipart    
+multipart:
+  maxFileSize: 200Mb
+  maxRequestSize: 200Mb
+
+spring:
+   #http  
+  http:
+    encoding:
+      enabled: true
+      charset: UTF-8
+      force: true
+      
+      
+      
+  #jackson
+  jackson: 
+    date-format: yyyy-MM-dd HH:mm:ss
+    timeZone: GMT+8
+  #mvc 
+  mvc:
+    favicon:
+      enabled: false
+  #resources
+  resources:
+    cache-period: 0
+    chain: 
+      cache: false
+  #aop
+  aop: 
+    auto: true
+    proxy-target-class: true
+   
+ 
+   
+    
+  #环境变化的配置   
+  #datasource
+  datasource:
+    name: test
+#    url: jdbc:mysql://rm-2zeum12f152n33c46o.mysql.rds.aliyuncs.com:3306/provider?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+#    username: photo
+#    password: b3bPVU8W
+    url: jdbc:mysql://192.168.3.160:3306/provider2?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+    username: dev_provider
+    password: dev@pvd123
+    
+#    url: jdbc:mysql://zrpc5.wuyu.pub:3306/provider_bak?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+#    username: root
+#    password: user_center320675
+#    url: jdbc:mysql://rm-2ze94l5qkx3920xglo.mysql.rds.aliyuncs.com:3306/provider?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+#    username: photo
+#    password: photo@1234
+    maxActive: 200
+    initialSize: 2
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+ 
+  #redis 
+  redis: 
+    host: 192.168.3.203
+#    password: 
+
+    port: 6379
+    pool:
+      max-idle: 8
+      min-idle: 0
+      max-active: 8
+      max-wait: -1
+
+  
+#loggin 
+logging:
+  config: classpath:logback.xml
+  path: providerLogs/
+  level:
+    org:
+      mybatis: debug
+    dao: debug
+ 
+  
+custom:
+  htmlExeUrl: D:\\wkhtmltopdf\\bin\\wkhtmltopdf.exe
+  pdfout: D:\\test\\
+  sigout: D:\\test\\done\\
+  signaturepfx: D:\\test\\signature\\iSignature.pfx
+  signatureunitrustkey: D:\\test\\\unitrust\\unitrust.key
+  signaturetemp: D:\\test\\temp\\
+  cutpictures: D:\\test\\temp\\
+
+
+oss:
+    isInternal: 1 #1外围2内网 3vpc网络
+    providerbucket: bj-yuantu
+    
+mepx:
+    notifyservice: http://photo-test-community.shijue.me/community/gic2/apply/changeStatus?token=f9479ccf304ea4b7c853ef1d3006be67
+    
+topic:
+    resourceservice: http://192.168.3.205:7700/api/topic/
+    
+token: 
+  smsToken: 39bbc5b2f4714aac949d9d9f7300f2763 #发送短信的时候的smstoken
+  
+interface:
+  sousuoUrl: http://60.205.184.74:9100/v3/_search?_client_=
+  keywordUrl: http://test-keyword.vcg.csdn.net/
+  
+drewdatajob:
+    shouldStartJob: 0 #0开发环境 1测试环境 1:生产环境
+  
+  
+  
+  
+
+ 

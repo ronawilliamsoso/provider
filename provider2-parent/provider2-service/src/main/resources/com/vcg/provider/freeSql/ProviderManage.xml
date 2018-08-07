@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.custom.providerManage">
+	<!-- 申请供稿人-资格审核情况搜索 -->
+	<select id="searchProviderApplicationInfo" resultType="resultMap">
+		SELECT
+			p.id,
+			p.name_cn name,
+			c.sex,
+			p.provider_company,
+			p.job_type,
+			c.mobile,
+			c.email,
+			p.created_time,
+			p.asset_family,
+			p.STATUS,
+			p.passt_time,
+			p.pass_user_id,
+			p.comment,
+			p.productions,
+			p.is_delete,
+			p.user_center_id
+		FROM
+			provider_application p
+		LEFT JOIN contact_application c ON p.user_center_id = c.user_center_id
+		
+		<include refid="dynamicWhere" />
+        
+		order by id DESC
+	 
+	</select>
+	
+	
+    <sql id="dynamicWhere">
+			<trim prefix="WHERE" prefixOverrides="AND|OR">
+			
+ 
+				<if test="status != null">
+					and p.status = #{status}
+				</if>
+				<if test="status == null">
+					and p.status != 2 and p.status !=3 
+				</if>
+				<if test="nameCn != null">
+					and p.name_cn like concat('%',#{nameCn},'%')
+				</if>
+				<if test="email != null">
+					and   c.email like concat('%',#{email},'%')
+				</if>
+				<if test="mobile != null">
+					and   c.mobile like concat('%',#{mobile},'%')
+				</if>
+ 
+				
+ 
+				 
+			</trim>
+	</sql>
+	
+	
+	
+	<!-- 申请供稿人-合同审核情况搜索查询 1未上传2已上传3驳回 4重新上传,5通过 -->
+	<select id="searchContractApplicationInfo" resultType="resultMap">
+		 SELECT
+				c.id,
+				 
+				p.name_cn,
+				m.mobile,
+				c.contract_id,
+				c.contract_name,
+				c.deadline,
+				c.edit_rate,
+				c.creative_rate,
+				c.exclusive_auth,
+				c.asset_family,
+				c.created_time,
+				p.passt_time,
+				 p.job_type,
+				c.updated_time,
+				p.pass_user_id,
+				c.auditing_status,
+				c.reason,
+				c.provider_name,
+				m.id_num,
+				m.address,
+				c.payee_number,
+				c.payee_name,
+				c.bank_name,
+				m.email,
+				m.qq,
+				m.weixin,
+				c.credit_line,
+				m.sex,
+				p.provider_company,
+				c.contract_zhuti,
+				p.country,
+				p.province,
+				p.city
+			FROM
+				contract_application c
+			LEFT JOIN provider_application p ON (c.provider_id = p.id)
+			LEFT JOIN contact_application m ON c.user_center_id = m.user_center_id
+			
+		<where>
+
+			<if test="assetFamily != null">
+				and c.asset_family = #{assetFamily}
+			</if>
+			
+			<if test="auditingStatus != null">
+				and c.auditing_status = #{auditingStatus}
+			</if>
+			<if test="auditingStatus == null">
+					and auditing_status in(2,3,4)
+			</if>
+			<if test="country != null">
+				and p.country = #{country}
+			</if>
+
+			<if test="province != null">
+				and p.province = #{province}
+			</if>
+			<if test="city != null">
+				and p.city = #{city}
+			</if>
+			
+			<if test="providerName != null">
+				and   provider_name like concat('%',#{providerName},'%')
+			</if>
+			<if test="email != null">
+				and   m.email like concat('%',#{email},'%')
+			</if>
+			<if test="mobile != null">
+				and   m.mobile like concat('%',#{mobile},'%')
+			</if>
+ 
+		</where>
+		       
+				order by id DESC
+	</select>
+	
+	<sql id="dynamicWherec">
+			<trim prefix="WHERE" prefixOverrides="AND|OR">
+				<if test="assetFamily != null">
+					 c.asset_family = #{assetFamily}
+				</if>
+				<if test="auditingStatus != null">
+					and auditing_status = #{auditingStatus}
+				</if>
+				<if test="auditingStatus == null">
+					and auditing_status != 1 and auditing_status !=5 
+				</if>
+				<if test="country != null">
+					and p.country = #{country}
+				</if>
+				<if test="province != null">
+					and p.province = #{province}
+				</if>
+				<if test="city != null">
+					and p.city = #{city}
+				</if>
+				<if test="createFrom != null">
+					and p.created_time &gt;= #{createFrom}
+				</if>
+				<if test="createTo != null">
+					and p.created_time &lt;= #{createTo}
+				</if>
+				<if test="passFrom != null">
+					and passt_time &gt;= #{passFrom}
+				</if>
+				<if test="passTo != null">
+					and passt_time &lt;= #{passTo}
+				</if>
+				<if test="passUserId != null">
+					and pass_user_id = #{passUserId}
+				</if>
+				<if test="id != null">
+					and c.id = #{id}
+				</if>
+				
+				<if test="searchName != null">
+					and (
+						      
+							 name like concat('%',#{searchName},'%')
+							or mobile like concat('%',#{searchName},'%')
+						)
+				</if>
+				 
+				 
+			</trim>
+	</sql>
+	
+	
+		<!-- 申请供稿人资格审核-合同审核-<查看合同> -->
+	<select id="viewContractApplication" resultType="resultMap">
+		 SELECT
+				c.id,
+				 
+				p.name_cn,
+				m.mobile,
+				c.contract_id,
+				c.contract_name,
+				c.deadline,
+				c.edit_rate,
+				c.creative_rate,
+				c.exclusive_auth,
+				c.asset_family,
+				p.passt_time,
+				p.pass_user_id,
+				c.auditing_status,
+				c.updated_time,
+				c.reason,
+				c.provider_name,
+				m.id_num,
+				m.address,
+				c.payee_number,
+				c.payee_name,
+				c.bank_name,
+				m.email,
+				m.qq,
+				m.weixin,
+				c.credit_line,
+				m.sex,
+				p.provider_company,
+				m.id_cardImgPath,
+				m.country,
+				m.postcode
+			FROM
+				contract_application c
+			LEFT JOIN provider_application p ON (c.provider_id = p.id)
+			LEFT JOIN contact_application m ON c.user_center_id = m.user_center_id
+			where c.id = #{id}
+
+	</select>
+	
+			<!-- 社区-<查看合同列表> -->
+	<select id="searchContractHistory" resultType="resultMap">
+		 SELECT
+				c.sign_date,
+				c.contract_pdf_path
+			FROM
+				contract c
+			WHERE
+				c.provider_id = (
+					SELECT
+						p.id
+					FROM
+						provider p
+					WHERE
+						p.user_center_id = #{userCenterId}
+				)
+	
+	</select>
+	
+
+	
+	<!-- 供稿人（机构）基本信息搜索 -->
+	<select id="searchProviderInfo" resultType="resultMap">
+		SELECT
+			p.id,
+		 
+			p.name_cn,
+			c.sex,
+			p.company,
+			p.job_type,
+			c.address,
+			c.mobile,
+			c.email,
+			c.qq,
+			c.weixin,
+			p.quality_rank,
+
+			p.created_time ,
+			p.status,
+			p.short_name,
+	 
+			p.asset_family,
+			p.country,
+			p.is_native,
+			p.created_by
+		
+			FROM
+				provider p
+			LEFT JOIN contact c ON (
+				p.id = c.provider_id and c.is_default=1
+			)
+		
+		<where>
+			<if test="type != null">
+				agent_type = #{type}
+			</if>
+			<if test="assetFamily != null">
+				and asset_family = #{assetFamily}
+			</if>
+			<if test="status != null">
+				and status = #{status}
+			</if>
+			<if test="country != null">
+				and country = #{country}
+			</if>
+			<if test="province != null">
+				and province = #{province}
+			</if>
+			<if test="city != null">
+				and city = #{city}
+			</if>
+			<if test="isNative != null">
+				and is_native = #{isNative}
+			</if>
+			
+			<if test="createFrom != null">
+				 and c.created_time &gt;= #{createFrom}
+			</if>
+			<if test="createTo != null">
+				and c.created_time &lt;= #{createTo}
+			</if>
+			<if test="passFrom != null">
+				and created_time &gt;= #{passFrom}
+			</if>
+			<if test="passTo != null">
+				and created_time &lt;= #{passTo}
+			</if>
+			<if test="qualityRank == 1 or qualityRank == 2 or qualityRank == 3 or qualityRank == 4 or qualityRank == 5">
+				and quality_rank = #{qualityRank}
+			</if>
+			<if test="qualityRank == 6">
+				and quality_rank is null 
+			</if>
+			<if test="nameCn != null">
+				and name_cn like concat('%',#{nameCn},'%')
+			</if>
+						<if test="email != null">
+				and email like concat('%',#{email},'%')
+			</if>
+						<if test="mobile != null">
+				and mobile like concat('%',#{mobile},'%')
+			</if>
+			
+			 
+ 
+		</where>
+		order by id  desc
+	</select>
+	
+	 <!-- 供应商详情包含基本信息 银行信息 -->
+	<select id="getProviderDetailedInformation" resultType="resultMap">
+SELECT
+ 
+	p.STATUS,
+	p.name_cn,
+	p.signature_name,
+	c.mobile,
+	c.sex,
+	c.email,
+	p.country,
+	p.city,
+	p.province,
+	p.location,
+	p.company,
+	c.weixin,
+	p.job_type,
+	c.qq,
+	c.id_num,
+	c.id_cardImgPath,
+	p.quality_rank,
+	p.asset_family,
+	p.user_center_id,
+	p.created_time,
+	c.id contactId,
+	pa.created_time applyTime,
+	s.totalphotonumber,
+	i.totalincome
+FROM
+	provider p
+LEFT JOIN contact c ON p.id = c.provider_id
+LEFT JOIN provider_application pa ON p.user_center_id = pa.user_center_id
+left join(select s.provider_id, count(id) totalphotonumber from resource_sell s where s.provider_id= #{id}) s on p.id = s.provider_id
+left join(select s.provider_id, sum(net_share) totalincome from resource_sell s where s.provider_id= #{id}) i on p.id = i.provider_id
+ 
+where  p.id = #{id}
+
+ ORDER BY p.created_time desc
+ limit 0,1
+ 
+	</select>
+	
+	
+	
+		 <!-- 供应商详情包含基本信息 银行信息 -->
+	<select id="getJigouBasicInfo" resultType="resultMap">
+		SELECT
+		    p.id,
+			p.status,
+			p.name_cn,
+			p.is_native,
+			p.short_name,
+			p.asset_family,
+			p.quality_rank,	
+			p.country,
+			p.city,
+			p.province,
+			p.location,
+			p.created_time,
+			p.updated_time,
+			p.created_by,
+			p.updated_by 
+		FROM
+			provider p
+		where  p.id = #{id}
+ 
+	</select>
+ 
+	
+	
+	
+		 <!-- 给编审系统提供的供应商详情 包含qq等 -->
+	<select id="getProviderDetailedInfoForEdit" resultType="resultMap">
+			SELECT
+		 
+				c.qq,
+				p.name_cn,
+				c.email,
+				cr.credit_line,
+				p.company,
+				c.mobile,
+				p.location,
+				c.work_tel,
+				c.postcode,
+				cr.exclusive_auth,
+				p.quality_rank,
+				cr.sign_date,
+				p.is_delete
+			FROM
+				provider p
+			LEFT JOIN contact c ON p.id = c.provider_id
+			LEFT JOIN contract cr ON p.id = cr.provider_id
+		<where>
+			<if test="id != null">
+				p.id = #{id}
+			</if>
+			 
+		</where>
+			ORDER BY c.created_time 
+			limit 0,1
+ 
+
+	</select>
+	
+	
+	<!-- 供稿人基本信息（机构）合同信息搜索 -->
+	<select id="searchContractInfo" resultType="resultMap">
+		SELECT
+		    c.id,
+	 
+			c.contract_name,
+			c.contract_type,
+			c.party_b,
+			c.party_a,
+			c.deadline,
+			c.begin_date,
+			c.end_date,
+			c.settlement_cycle,
+			<!-- l.name, -->
+			c.exclusive_auth,
+			<!-- l.rate, -->
+			c.credit_line,
+			c.contract_status,
+			c.contract_pdf_path,
+			c.provider_id
+		FROM
+			contract c
+		left JOIN collection l on (c.id = l.contract_id  and c.provider_id = l.provider_id)
+		<where>
+			<if test="assetFamily != null">
+				c.asset_family = #{assetFamily}
+			</if>
+			<if test="country != null">
+				and country = #{country}
+			</if>
+			<if test="province != null">
+				and province = #{province}
+			</if>
+			<if test="city != null">
+				and city = #{city}
+			</if>
+			<if test="beginFrom != null">
+				and begin_date &gt;= #{beginFrom}
+			</if>
+			<if test="beginTo != null">
+				and begin_date &lt;= #{beginTo}
+			</if>
+			<if test="endFrom != null">
+				and end_date &gt;= #{endFrom}
+			</if>
+			<if test="endTo != null">
+				and end_date &lt;= #{endTo}
+			</if>
+			<if test="contractStatus != null">
+				and contract_status = #{contractStatus}
+			</if>
+			<if test="contractType != null">
+				and contract_type = #{contractType}
+			</if>
+			<if test="deadline != null">
+				and deadline = #{deadline}
+			</if>
+			<if test="exclusiveAuth != null">
+				and c.exclusive_auth = #{exclusiveAuth}
+			</if>
+			<if test="licenseType != null">
+				l.license_type = #{licenseType}
+			</if>
+			<if test="rateFrom != null">
+				l.rate  &gt;= #{rateFrom}
+			</if>
+			<if test="rateTo != null">
+				l.rate   &lt;= #{rateTo}
+			</if>
+			<if test="searchName != null">
+				and (
+					c.provider_id in (
+						select id from provider
+						where  
+						  name_cn like concat('%',#{searchName},'%')
+						 
+						)
+					or c.provider_id in (
+						select provider_id from contact_application 
+						where mobile like concat('%',#{searchName},'%')
+						)
+				)
+			</if>
+			<if test="type != null">
+				and c.provider_id in (
+					select id from provider 
+					where agent_type = #{type}
+				)
+			</if>
+		</where>
+	</select>
+	
+		<!-- 供稿人-合同信息搜索 -合同详情-->
+	<select id="searchContractDetailedInfo" resultType="resultMap">
+		SELECT
+		    c.id,
+	 
+			c.contract_name,
+			c.contract_type,
+			c.party_b,
+			c.party_a,
+			c.deadline,
+			c.begin_date,
+			c.end_date,
+			c.settlement_cycle,
+			c.exclusive_auth,
+			c.credit_line,
+			c.contract_status,
+			c.contract_pdf_path,
+			c.provider_id,
+			p.name payMethod,
+            p.bank_remark  payComment
+		FROM
+			contract c
+		left JOIN collection l on (c.id = l.contract_id  and c.provider_id = l.provider_id)
+		LEFT JOIN provider_payment p on(c.payment_id = p.id )
+		
+		<where>
+			<if test="id != null">
+				c.id = #{id}
+			</if>
+		</where>
+		 
+	</select>
+</mapper>

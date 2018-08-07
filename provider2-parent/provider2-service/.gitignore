@@ -1,0 +1,4 @@
+/target/
+/main.pid
+providerLogs/
+/.apt_generated/

@@ -1,0 +1,1063 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcg.provider.dao.CollectionDao" >
+  <resultMap id="BaseResultMap" type="com.vcg.provider.model.Collection" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="provider_id" property="providerId" jdbcType="INTEGER" />
+    <result column="contract_id" property="contractId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="original_name" property="originalName" jdbcType="VARCHAR" />
+    <result column="collection_code" property="collectionCode" jdbcType="VARCHAR" />
+    <result column="asset_type" property="assetType" jdbcType="INTEGER" />
+    <result column="asset_family" property="assetFamily" jdbcType="INTEGER" />
+    <result column="license_type" property="licenseType" jdbcType="INTEGER" />
+    <result column="royalty_rate" property="royaltyRate" jdbcType="VARCHAR" />
+    <result column="auth_location" property="authLocation" jdbcType="VARCHAR" />
+    <result column="brand_id" property="brandId" jdbcType="INTEGER" />
+    <result column="available_status" property="availableStatus" jdbcType="INTEGER" />
+    <result column="collection_level" property="collectionLevel" jdbcType="VARCHAR" />
+    <result column="target_website" property="targetWebsite" jdbcType="VARCHAR" />
+    <result column="content_topic" property="contentTopic" jdbcType="VARCHAR" />
+    <result column="house_partner" property="housePartner" jdbcType="INTEGER" />
+    <result column="owned_selfcontent" property="ownedSelfcontent" jdbcType="INTEGER" />
+    <result column="wholly_owned" property="whollyOwned" jdbcType="INTEGER" />
+    <result column="exclusive_auth" property="exclusiveAuth" jdbcType="VARCHAR" />
+    <result column="ftp_subpath" property="ftpSubpath" jdbcType="VARCHAR" />
+    <result column="is_commercial" property="isCommercial" jdbcType="INTEGER" />
+    <result column="is_commercial_note" property="isCommercialNote" jdbcType="VARCHAR" />
+    <result column="is_exclusivesell" property="isExclusivesell" jdbcType="VARCHAR" />
+    <result column="is_exclusivesell_note" property="isExclusivesellNote" jdbcType="VARCHAR" />
+    <result column="eza_enabled" property="ezaEnabled" jdbcType="INTEGER" />
+    <result column="is_subscription" property="isSubscription" jdbcType="INTEGER" />
+    <result column="is_subscription_note" property="isSubscriptionNote" jdbcType="VARCHAR" />
+    <result column="min_price" property="minPrice" jdbcType="INTEGER" />
+    <result column="min_price_note" property="minPriceNote" jdbcType="VARCHAR" />
+    <result column="sales_restrictions" property="salesRestrictions" jdbcType="VARCHAR" />
+    <result column="other_restrictions" property="otherRestrictions" jdbcType="VARCHAR" />
+    <result column="model_release" property="modelRelease" jdbcType="VARCHAR" />
+    <result column="collection_introduction" property="collectionIntroduction" jdbcType="VARCHAR" />
+    <result column="sell_point" property="sellPoint" jdbcType="VARCHAR" />
+    <result column="target_market" property="targetMarket" jdbcType="VARCHAR" />
+    <result column="collection_history" property="collectionHistory" jdbcType="VARCHAR" />
+    <result column="price_limitlevel" property="priceLimitlevel" jdbcType="VARCHAR" />
+    <result column="price_limitdetail" property="priceLimitdetail" jdbcType="VARCHAR" />
+    <result column="business_owner" property="businessOwner" jdbcType="VARCHAR" />
+    <result column="notes" property="notes" jdbcType="VARCHAR" />
+    <result column="modified_by" property="modifiedBy" jdbcType="INTEGER" />
+    <result column="exclusive_strategy" property="exclusiveStrategy" jdbcType="VARCHAR" />
+    <result column="exclusive_strategydetail" property="exclusiveStrategydetail" jdbcType="VARCHAR" />
+    <result column="exclusive_clients" property="exclusiveClients" jdbcType="VARCHAR" />
+    <result column="exclusive_clientsdetail" property="exclusiveClientsdetail" jdbcType="VARCHAR" />
+    <result column="water_id" property="waterId" jdbcType="INTEGER" />
+    <result column="block_reason" property="blockReason" jdbcType="VARCHAR" />
+    <result column="has_negative" property="hasNegative" jdbcType="VARCHAR" />
+    <result column="product_limitation" property="productLimitation" jdbcType="VARCHAR" />
+    <result column="api_send" property="apiSend" jdbcType="VARCHAR" />
+    <result column="default_quality_rank" property="defaultQualityRank" jdbcType="INTEGER" />
+    <result column="have_uuright" property="haveUuright" jdbcType="INTEGER" />
+    <result column="deduct_cost" property="deductCost" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, provider_id, contract_id, name, original_name, collection_code, asset_type, asset_family, 
+    license_type, royalty_rate, auth_location, brand_id, available_status, collection_level, 
+    target_website, content_topic, house_partner, owned_selfcontent, wholly_owned, exclusive_auth, 
+    ftp_subpath, is_commercial, is_commercial_note, is_exclusivesell, is_exclusivesell_note, 
+    eza_enabled, is_subscription, is_subscription_note, min_price, min_price_note, sales_restrictions, 
+    other_restrictions, model_release, collection_introduction, sell_point, target_market, 
+    collection_history, price_limitlevel, price_limitdetail, business_owner, notes, modified_by, 
+    exclusive_strategy, exclusive_strategydetail, exclusive_clients, exclusive_clientsdetail, 
+    water_id, block_reason, has_negative, product_limitation, api_send, default_quality_rank, 
+    have_uuright, deduct_cost, created_time, created_by, updated_time, updated_by
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.vcg.provider.model.query.CollectionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List_Dy" />
+    from collection
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from collection
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from collection
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.vcg.provider.model.query.CollectionExample" >
+    delete from collection
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.vcg.provider.model.Collection" useGeneratedKeys="true" keyProperty="id" >
+    insert into collection (id, provider_id, contract_id, 
+      name, original_name, collection_code, 
+      asset_type, asset_family, license_type, 
+      royalty_rate, auth_location, brand_id, 
+      available_status, collection_level, target_website, 
+      content_topic, house_partner, owned_selfcontent, 
+      wholly_owned, exclusive_auth, ftp_subpath, 
+      is_commercial, is_commercial_note, is_exclusivesell, 
+      is_exclusivesell_note, eza_enabled, is_subscription, 
+      is_subscription_note, min_price, min_price_note, 
+      sales_restrictions, other_restrictions, model_release, 
+      collection_introduction, sell_point, target_market, 
+      collection_history, price_limitlevel, price_limitdetail, 
+      business_owner, notes, modified_by, 
+      exclusive_strategy, exclusive_strategydetail, 
+      exclusive_clients, exclusive_clientsdetail, 
+      water_id, block_reason, has_negative, 
+      product_limitation, api_send, default_quality_rank, 
+      have_uuright, deduct_cost, created_time, 
+      created_by, updated_time, updated_by
+      )
+    values (#{id,jdbcType=INTEGER}, #{providerId,jdbcType=INTEGER}, #{contractId,jdbcType=INTEGER}, 
+      #{name,jdbcType=VARCHAR}, #{originalName,jdbcType=VARCHAR}, #{collectionCode,jdbcType=VARCHAR}, 
+      #{assetType,jdbcType=INTEGER}, #{assetFamily,jdbcType=INTEGER}, #{licenseType,jdbcType=INTEGER}, 
+      #{royaltyRate,jdbcType=VARCHAR}, #{authLocation,jdbcType=VARCHAR}, #{brandId,jdbcType=INTEGER}, 
+      #{availableStatus,jdbcType=INTEGER}, #{collectionLevel,jdbcType=VARCHAR}, #{targetWebsite,jdbcType=VARCHAR}, 
+      #{contentTopic,jdbcType=VARCHAR}, #{housePartner,jdbcType=INTEGER}, #{ownedSelfcontent,jdbcType=INTEGER}, 
+      #{whollyOwned,jdbcType=INTEGER}, #{exclusiveAuth,jdbcType=VARCHAR}, #{ftpSubpath,jdbcType=VARCHAR}, 
+      #{isCommercial,jdbcType=INTEGER}, #{isCommercialNote,jdbcType=VARCHAR}, #{isExclusivesell,jdbcType=VARCHAR}, 
+      #{isExclusivesellNote,jdbcType=VARCHAR}, #{ezaEnabled,jdbcType=INTEGER}, #{isSubscription,jdbcType=INTEGER}, 
+      #{isSubscriptionNote,jdbcType=VARCHAR}, #{minPrice,jdbcType=INTEGER}, #{minPriceNote,jdbcType=VARCHAR}, 
+      #{salesRestrictions,jdbcType=VARCHAR}, #{otherRestrictions,jdbcType=VARCHAR}, #{modelRelease,jdbcType=VARCHAR}, 
+      #{collectionIntroduction,jdbcType=VARCHAR}, #{sellPoint,jdbcType=VARCHAR}, #{targetMarket,jdbcType=VARCHAR}, 
+      #{collectionHistory,jdbcType=VARCHAR}, #{priceLimitlevel,jdbcType=VARCHAR}, #{priceLimitdetail,jdbcType=VARCHAR}, 
+      #{businessOwner,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, #{modifiedBy,jdbcType=INTEGER}, 
+      #{exclusiveStrategy,jdbcType=VARCHAR}, #{exclusiveStrategydetail,jdbcType=VARCHAR}, 
+      #{exclusiveClients,jdbcType=VARCHAR}, #{exclusiveClientsdetail,jdbcType=VARCHAR}, 
+      #{waterId,jdbcType=INTEGER}, #{blockReason,jdbcType=VARCHAR}, #{hasNegative,jdbcType=VARCHAR}, 
+      #{productLimitation,jdbcType=VARCHAR}, #{apiSend,jdbcType=VARCHAR}, #{defaultQualityRank,jdbcType=INTEGER}, 
+      #{haveUuright,jdbcType=INTEGER}, #{deductCost,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{createdBy,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.vcg.provider.model.Collection" useGeneratedKeys="true" keyProperty="id" >
+    insert into collection
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="providerId != null" >
+        provider_id,
+      </if>
+      <if test="contractId != null" >
+        contract_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="originalName != null" >
+        original_name,
+      </if>
+      <if test="collectionCode != null" >
+        collection_code,
+      </if>
+      <if test="assetType != null" >
+        asset_type,
+      </if>
+      <if test="assetFamily != null" >
+        asset_family,
+      </if>
+      <if test="licenseType != null" >
+        license_type,
+      </if>
+      <if test="royaltyRate != null" >
+        royalty_rate,
+      </if>
+      <if test="authLocation != null" >
+        auth_location,
+      </if>
+      <if test="brandId != null" >
+        brand_id,
+      </if>
+      <if test="availableStatus != null" >
+        available_status,
+      </if>
+      <if test="collectionLevel != null" >
+        collection_level,
+      </if>
+      <if test="targetWebsite != null" >
+        target_website,
+      </if>
+      <if test="contentTopic != null" >
+        content_topic,
+      </if>
+      <if test="housePartner != null" >
+        house_partner,
+      </if>
+      <if test="ownedSelfcontent != null" >
+        owned_selfcontent,
+      </if>
+      <if test="whollyOwned != null" >
+        wholly_owned,
+      </if>
+      <if test="exclusiveAuth != null" >
+        exclusive_auth,
+      </if>
+      <if test="ftpSubpath != null" >
+        ftp_subpath,
+      </if>
+      <if test="isCommercial != null" >
+        is_commercial,
+      </if>
+      <if test="isCommercialNote != null" >
+        is_commercial_note,
+      </if>
+      <if test="isExclusivesell != null" >
+        is_exclusivesell,
+      </if>
+      <if test="isExclusivesellNote != null" >
+        is_exclusivesell_note,
+      </if>
+      <if test="ezaEnabled != null" >
+        eza_enabled,
+      </if>
+      <if test="isSubscription != null" >
+        is_subscription,
+      </if>
+      <if test="isSubscriptionNote != null" >
+        is_subscription_note,
+      </if>
+      <if test="minPrice != null" >
+        min_price,
+      </if>
+      <if test="minPriceNote != null" >
+        min_price_note,
+      </if>
+      <if test="salesRestrictions != null" >
+        sales_restrictions,
+      </if>
+      <if test="otherRestrictions != null" >
+        other_restrictions,
+      </if>
+      <if test="modelRelease != null" >
+        model_release,
+      </if>
+      <if test="collectionIntroduction != null" >
+        collection_introduction,
+      </if>
+      <if test="sellPoint != null" >
+        sell_point,
+      </if>
+      <if test="targetMarket != null" >
+        target_market,
+      </if>
+      <if test="collectionHistory != null" >
+        collection_history,
+      </if>
+      <if test="priceLimitlevel != null" >
+        price_limitlevel,
+      </if>
+      <if test="priceLimitdetail != null" >
+        price_limitdetail,
+      </if>
+      <if test="businessOwner != null" >
+        business_owner,
+      </if>
+      <if test="notes != null" >
+        notes,
+      </if>
+      <if test="modifiedBy != null" >
+        modified_by,
+      </if>
+      <if test="exclusiveStrategy != null" >
+        exclusive_strategy,
+      </if>
+      <if test="exclusiveStrategydetail != null" >
+        exclusive_strategydetail,
+      </if>
+      <if test="exclusiveClients != null" >
+        exclusive_clients,
+      </if>
+      <if test="exclusiveClientsdetail != null" >
+        exclusive_clientsdetail,
+      </if>
+      <if test="waterId != null" >
+        water_id,
+      </if>
+      <if test="blockReason != null" >
+        block_reason,
+      </if>
+      <if test="hasNegative != null" >
+        has_negative,
+      </if>
+      <if test="productLimitation != null" >
+        product_limitation,
+      </if>
+      <if test="apiSend != null" >
+        api_send,
+      </if>
+      <if test="defaultQualityRank != null" >
+        default_quality_rank,
+      </if>
+      <if test="haveUuright != null" >
+        have_uuright,
+      </if>
+      <if test="deductCost != null" >
+        deduct_cost,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="updatedBy != null" >
+        updated_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="providerId != null" >
+        #{providerId,jdbcType=INTEGER},
+      </if>
+      <if test="contractId != null" >
+        #{contractId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="originalName != null" >
+        #{originalName,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionCode != null" >
+        #{collectionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="assetType != null" >
+        #{assetType,jdbcType=INTEGER},
+      </if>
+      <if test="assetFamily != null" >
+        #{assetFamily,jdbcType=INTEGER},
+      </if>
+      <if test="licenseType != null" >
+        #{licenseType,jdbcType=INTEGER},
+      </if>
+      <if test="royaltyRate != null" >
+        #{royaltyRate,jdbcType=VARCHAR},
+      </if>
+      <if test="authLocation != null" >
+        #{authLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null" >
+        #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="availableStatus != null" >
+        #{availableStatus,jdbcType=INTEGER},
+      </if>
+      <if test="collectionLevel != null" >
+        #{collectionLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="targetWebsite != null" >
+        #{targetWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="contentTopic != null" >
+        #{contentTopic,jdbcType=VARCHAR},
+      </if>
+      <if test="housePartner != null" >
+        #{housePartner,jdbcType=INTEGER},
+      </if>
+      <if test="ownedSelfcontent != null" >
+        #{ownedSelfcontent,jdbcType=INTEGER},
+      </if>
+      <if test="whollyOwned != null" >
+        #{whollyOwned,jdbcType=INTEGER},
+      </if>
+      <if test="exclusiveAuth != null" >
+        #{exclusiveAuth,jdbcType=VARCHAR},
+      </if>
+      <if test="ftpSubpath != null" >
+        #{ftpSubpath,jdbcType=VARCHAR},
+      </if>
+      <if test="isCommercial != null" >
+        #{isCommercial,jdbcType=INTEGER},
+      </if>
+      <if test="isCommercialNote != null" >
+        #{isCommercialNote,jdbcType=VARCHAR},
+      </if>
+      <if test="isExclusivesell != null" >
+        #{isExclusivesell,jdbcType=VARCHAR},
+      </if>
+      <if test="isExclusivesellNote != null" >
+        #{isExclusivesellNote,jdbcType=VARCHAR},
+      </if>
+      <if test="ezaEnabled != null" >
+        #{ezaEnabled,jdbcType=INTEGER},
+      </if>
+      <if test="isSubscription != null" >
+        #{isSubscription,jdbcType=INTEGER},
+      </if>
+      <if test="isSubscriptionNote != null" >
+        #{isSubscriptionNote,jdbcType=VARCHAR},
+      </if>
+      <if test="minPrice != null" >
+        #{minPrice,jdbcType=INTEGER},
+      </if>
+      <if test="minPriceNote != null" >
+        #{minPriceNote,jdbcType=VARCHAR},
+      </if>
+      <if test="salesRestrictions != null" >
+        #{salesRestrictions,jdbcType=VARCHAR},
+      </if>
+      <if test="otherRestrictions != null" >
+        #{otherRestrictions,jdbcType=VARCHAR},
+      </if>
+      <if test="modelRelease != null" >
+        #{modelRelease,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionIntroduction != null" >
+        #{collectionIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="sellPoint != null" >
+        #{sellPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="targetMarket != null" >
+        #{targetMarket,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionHistory != null" >
+        #{collectionHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="priceLimitlevel != null" >
+        #{priceLimitlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="priceLimitdetail != null" >
+        #{priceLimitdetail,jdbcType=VARCHAR},
+      </if>
+      <if test="businessOwner != null" >
+        #{businessOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedBy != null" >
+        #{modifiedBy,jdbcType=INTEGER},
+      </if>
+      <if test="exclusiveStrategy != null" >
+        #{exclusiveStrategy,jdbcType=VARCHAR},
+      </if>
+      <if test="exclusiveStrategydetail != null" >
+        #{exclusiveStrategydetail,jdbcType=VARCHAR},
+      </if>
+      <if test="exclusiveClients != null" >
+        #{exclusiveClients,jdbcType=VARCHAR},
+      </if>
+      <if test="exclusiveClientsdetail != null" >
+        #{exclusiveClientsdetail,jdbcType=VARCHAR},
+      </if>
+      <if test="waterId != null" >
+        #{waterId,jdbcType=INTEGER},
+      </if>
+      <if test="blockReason != null" >
+        #{blockReason,jdbcType=VARCHAR},
+      </if>
+      <if test="hasNegative != null" >
+        #{hasNegative,jdbcType=VARCHAR},
+      </if>
+      <if test="productLimitation != null" >
+        #{productLimitation,jdbcType=VARCHAR},
+      </if>
+      <if test="apiSend != null" >
+        #{apiSend,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultQualityRank != null" >
+        #{defaultQualityRank,jdbcType=INTEGER},
+      </if>
+      <if test="haveUuright != null" >
+        #{haveUuright,jdbcType=INTEGER},
+      </if>
+      <if test="deductCost != null" >
+        #{deductCost,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" resultType="java.lang.Integer" parameterType="com.vcg.provider.model.query.CollectionExample" >
+    select count(*) from collection
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update collection
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.providerId != null" >
+        provider_id = #{record.providerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.contractId != null" >
+        contract_id = #{record.contractId,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.originalName != null" >
+        original_name = #{record.originalName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collectionCode != null" >
+        collection_code = #{record.collectionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assetType != null" >
+        asset_type = #{record.assetType,jdbcType=INTEGER},
+      </if>
+      <if test="record.assetFamily != null" >
+        asset_family = #{record.assetFamily,jdbcType=INTEGER},
+      </if>
+      <if test="record.licenseType != null" >
+        license_type = #{record.licenseType,jdbcType=INTEGER},
+      </if>
+      <if test="record.royaltyRate != null" >
+        royalty_rate = #{record.royaltyRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.authLocation != null" >
+        auth_location = #{record.authLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brandId != null" >
+        brand_id = #{record.brandId,jdbcType=INTEGER},
+      </if>
+      <if test="record.availableStatus != null" >
+        available_status = #{record.availableStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.collectionLevel != null" >
+        collection_level = #{record.collectionLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.targetWebsite != null" >
+        target_website = #{record.targetWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contentTopic != null" >
+        content_topic = #{record.contentTopic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.housePartner != null" >
+        house_partner = #{record.housePartner,jdbcType=INTEGER},
+      </if>
+      <if test="record.ownedSelfcontent != null" >
+        owned_selfcontent = #{record.ownedSelfcontent,jdbcType=INTEGER},
+      </if>
+      <if test="record.whollyOwned != null" >
+        wholly_owned = #{record.whollyOwned,jdbcType=INTEGER},
+      </if>
+      <if test="record.exclusiveAuth != null" >
+        exclusive_auth = #{record.exclusiveAuth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ftpSubpath != null" >
+        ftp_subpath = #{record.ftpSubpath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isCommercial != null" >
+        is_commercial = #{record.isCommercial,jdbcType=INTEGER},
+      </if>
+      <if test="record.isCommercialNote != null" >
+        is_commercial_note = #{record.isCommercialNote,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isExclusivesell != null" >
+        is_exclusivesell = #{record.isExclusivesell,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isExclusivesellNote != null" >
+        is_exclusivesell_note = #{record.isExclusivesellNote,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ezaEnabled != null" >
+        eza_enabled = #{record.ezaEnabled,jdbcType=INTEGER},
+      </if>
+      <if test="record.isSubscription != null" >
+        is_subscription = #{record.isSubscription,jdbcType=INTEGER},
+      </if>
+      <if test="record.isSubscriptionNote != null" >
+        is_subscription_note = #{record.isSubscriptionNote,jdbcType=VARCHAR},
+      </if>
+      <if test="record.minPrice != null" >
+        min_price = #{record.minPrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.minPriceNote != null" >
+        min_price_note = #{record.minPriceNote,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salesRestrictions != null" >
+        sales_restrictions = #{record.salesRestrictions,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otherRestrictions != null" >
+        other_restrictions = #{record.otherRestrictions,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modelRelease != null" >
+        model_release = #{record.modelRelease,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collectionIntroduction != null" >
+        collection_introduction = #{record.collectionIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sellPoint != null" >
+        sell_point = #{record.sellPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="record.targetMarket != null" >
+        target_market = #{record.targetMarket,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collectionHistory != null" >
+        collection_history = #{record.collectionHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priceLimitlevel != null" >
+        price_limitlevel = #{record.priceLimitlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priceLimitdetail != null" >
+        price_limitdetail = #{record.priceLimitdetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businessOwner != null" >
+        business_owner = #{record.businessOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notes != null" >
+        notes = #{record.notes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifiedBy != null" >
+        modified_by = #{record.modifiedBy,jdbcType=INTEGER},
+      </if>
+      <if test="record.exclusiveStrategy != null" >
+        exclusive_strategy = #{record.exclusiveStrategy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exclusiveStrategydetail != null" >
+        exclusive_strategydetail = #{record.exclusiveStrategydetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exclusiveClients != null" >
+        exclusive_clients = #{record.exclusiveClients,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exclusiveClientsdetail != null" >
+        exclusive_clientsdetail = #{record.exclusiveClientsdetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.waterId != null" >
+        water_id = #{record.waterId,jdbcType=INTEGER},
+      </if>
+      <if test="record.blockReason != null" >
+        block_reason = #{record.blockReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hasNegative != null" >
+        has_negative = #{record.hasNegative,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productLimitation != null" >
+        product_limitation = #{record.productLimitation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apiSend != null" >
+        api_send = #{record.apiSend,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defaultQualityRank != null" >
+        default_quality_rank = #{record.defaultQualityRank,jdbcType=INTEGER},
+      </if>
+      <if test="record.haveUuright != null" >
+        have_uuright = #{record.haveUuright,jdbcType=INTEGER},
+      </if>
+      <if test="record.deductCost != null" >
+        deduct_cost = #{record.deductCost,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdTime != null" >
+        created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdBy != null" >
+        created_by = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedTime != null" >
+        updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedBy != null" >
+        updated_by = #{record.updatedBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update collection
+    set id = #{record.id,jdbcType=INTEGER},
+      provider_id = #{record.providerId,jdbcType=INTEGER},
+      contract_id = #{record.contractId,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      original_name = #{record.originalName,jdbcType=VARCHAR},
+      collection_code = #{record.collectionCode,jdbcType=VARCHAR},
+      asset_type = #{record.assetType,jdbcType=INTEGER},
+      asset_family = #{record.assetFamily,jdbcType=INTEGER},
+      license_type = #{record.licenseType,jdbcType=INTEGER},
+      royalty_rate = #{record.royaltyRate,jdbcType=VARCHAR},
+      auth_location = #{record.authLocation,jdbcType=VARCHAR},
+      brand_id = #{record.brandId,jdbcType=INTEGER},
+      available_status = #{record.availableStatus,jdbcType=INTEGER},
+      collection_level = #{record.collectionLevel,jdbcType=VARCHAR},
+      target_website = #{record.targetWebsite,jdbcType=VARCHAR},
+      content_topic = #{record.contentTopic,jdbcType=VARCHAR},
+      house_partner = #{record.housePartner,jdbcType=INTEGER},
+      owned_selfcontent = #{record.ownedSelfcontent,jdbcType=INTEGER},
+      wholly_owned = #{record.whollyOwned,jdbcType=INTEGER},
+      exclusive_auth = #{record.exclusiveAuth,jdbcType=VARCHAR},
+      ftp_subpath = #{record.ftpSubpath,jdbcType=VARCHAR},
+      is_commercial = #{record.isCommercial,jdbcType=INTEGER},
+      is_commercial_note = #{record.isCommercialNote,jdbcType=VARCHAR},
+      is_exclusivesell = #{record.isExclusivesell,jdbcType=VARCHAR},
+      is_exclusivesell_note = #{record.isExclusivesellNote,jdbcType=VARCHAR},
+      eza_enabled = #{record.ezaEnabled,jdbcType=INTEGER},
+      is_subscription = #{record.isSubscription,jdbcType=INTEGER},
+      is_subscription_note = #{record.isSubscriptionNote,jdbcType=VARCHAR},
+      min_price = #{record.minPrice,jdbcType=INTEGER},
+      min_price_note = #{record.minPriceNote,jdbcType=VARCHAR},
+      sales_restrictions = #{record.salesRestrictions,jdbcType=VARCHAR},
+      other_restrictions = #{record.otherRestrictions,jdbcType=VARCHAR},
+      model_release = #{record.modelRelease,jdbcType=VARCHAR},
+      collection_introduction = #{record.collectionIntroduction,jdbcType=VARCHAR},
+      sell_point = #{record.sellPoint,jdbcType=VARCHAR},
+      target_market = #{record.targetMarket,jdbcType=VARCHAR},
+      collection_history = #{record.collectionHistory,jdbcType=VARCHAR},
+      price_limitlevel = #{record.priceLimitlevel,jdbcType=VARCHAR},
+      price_limitdetail = #{record.priceLimitdetail,jdbcType=VARCHAR},
+      business_owner = #{record.businessOwner,jdbcType=VARCHAR},
+      notes = #{record.notes,jdbcType=VARCHAR},
+      modified_by = #{record.modifiedBy,jdbcType=INTEGER},
+      exclusive_strategy = #{record.exclusiveStrategy,jdbcType=VARCHAR},
+      exclusive_strategydetail = #{record.exclusiveStrategydetail,jdbcType=VARCHAR},
+      exclusive_clients = #{record.exclusiveClients,jdbcType=VARCHAR},
+      exclusive_clientsdetail = #{record.exclusiveClientsdetail,jdbcType=VARCHAR},
+      water_id = #{record.waterId,jdbcType=INTEGER},
+      block_reason = #{record.blockReason,jdbcType=VARCHAR},
+      has_negative = #{record.hasNegative,jdbcType=VARCHAR},
+      product_limitation = #{record.productLimitation,jdbcType=VARCHAR},
+      api_send = #{record.apiSend,jdbcType=VARCHAR},
+      default_quality_rank = #{record.defaultQualityRank,jdbcType=INTEGER},
+      have_uuright = #{record.haveUuright,jdbcType=INTEGER},
+      deduct_cost = #{record.deductCost,jdbcType=INTEGER},
+      created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      created_by = #{record.createdBy,jdbcType=VARCHAR},
+      updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      updated_by = #{record.updatedBy,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vcg.provider.model.Collection" >
+    update collection
+    <set >
+      <if test="providerId != null" >
+        provider_id = #{providerId,jdbcType=INTEGER},
+      </if>
+      <if test="contractId != null" >
+        contract_id = #{contractId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="originalName != null" >
+        original_name = #{originalName,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionCode != null" >
+        collection_code = #{collectionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="assetType != null" >
+        asset_type = #{assetType,jdbcType=INTEGER},
+      </if>
+      <if test="assetFamily != null" >
+        asset_family = #{assetFamily,jdbcType=INTEGER},
+      </if>
+      <if test="licenseType != null" >
+        license_type = #{licenseType,jdbcType=INTEGER},
+      </if>
+      <if test="royaltyRate != null" >
+        royalty_rate = #{royaltyRate,jdbcType=VARCHAR},
+      </if>
+      <if test="authLocation != null" >
+        auth_location = #{authLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null" >
+        brand_id = #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="availableStatus != null" >
+        available_status = #{availableStatus,jdbcType=INTEGER},
+      </if>
+      <if test="collectionLevel != null" >
+        collection_level = #{collectionLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="targetWebsite != null" >
+        target_website = #{targetWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="contentTopic != null" >
+        content_topic = #{contentTopic,jdbcType=VARCHAR},
+      </if>
+      <if test="housePartner != null" >
+        house_partner = #{housePartner,jdbcType=INTEGER},
+      </if>
+      <if test="ownedSelfcontent != null" >
+        owned_selfcontent = #{ownedSelfcontent,jdbcType=INTEGER},
+      </if>
+      <if test="whollyOwned != null" >
+        wholly_owned = #{whollyOwned,jdbcType=INTEGER},
+      </if>
+      <if test="exclusiveAuth != null" >
+        exclusive_auth = #{exclusiveAuth,jdbcType=VARCHAR},
+      </if>
+      <if test="ftpSubpath != null" >
+        ftp_subpath = #{ftpSubpath,jdbcType=VARCHAR},
+      </if>
+      <if test="isCommercial != null" >
+        is_commercial = #{isCommercial,jdbcType=INTEGER},
+      </if>
+      <if test="isCommercialNote != null" >
+        is_commercial_note = #{isCommercialNote,jdbcType=VARCHAR},
+      </if>
+      <if test="isExclusivesell != null" >
+        is_exclusivesell = #{isExclusivesell,jdbcType=VARCHAR},
+      </if>
+      <if test="isExclusivesellNote != null" >
+        is_exclusivesell_note = #{isExclusivesellNote,jdbcType=VARCHAR},
+      </if>
+      <if test="ezaEnabled != null" >
+        eza_enabled = #{ezaEnabled,jdbcType=INTEGER},
+      </if>
+      <if test="isSubscription != null" >
+        is_subscription = #{isSubscription,jdbcType=INTEGER},
+      </if>
+      <if test="isSubscriptionNote != null" >
+        is_subscription_note = #{isSubscriptionNote,jdbcType=VARCHAR},
+      </if>
+      <if test="minPrice != null" >
+        min_price = #{minPrice,jdbcType=INTEGER},
+      </if>
+      <if test="minPriceNote != null" >
+        min_price_note = #{minPriceNote,jdbcType=VARCHAR},
+      </if>
+      <if test="salesRestrictions != null" >
+        sales_restrictions = #{salesRestrictions,jdbcType=VARCHAR},
+      </if>
+      <if test="otherRestrictions != null" >
+        other_restrictions = #{otherRestrictions,jdbcType=VARCHAR},
+      </if>
+      <if test="modelRelease != null" >
+        model_release = #{modelRelease,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionIntroduction != null" >
+        collection_introduction = #{collectionIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="sellPoint != null" >
+        sell_point = #{sellPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="targetMarket != null" >
+        target_market = #{targetMarket,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionHistory != null" >
+        collection_history = #{collectionHistory,jdbcType=VARCHAR},
+      </if>
+      <if test="priceLimitlevel != null" >
+        price_limitlevel = #{priceLimitlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="priceLimitdetail != null" >
+        price_limitdetail = #{priceLimitdetail,jdbcType=VARCHAR},
+      </if>
+      <if test="businessOwner != null" >
+        business_owner = #{businessOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        notes = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedBy != null" >
+        modified_by = #{modifiedBy,jdbcType=INTEGER},
+      </if>
+      <if test="exclusiveStrategy != null" >
+        exclusive_strategy = #{exclusiveStrategy,jdbcType=VARCHAR},
+      </if>
+      <if test="exclusiveStrategydetail != null" >
+        exclusive_strategydetail = #{exclusiveStrategydetail,jdbcType=VARCHAR},
+      </if>
+      <if test="exclusiveClients != null" >
+        exclusive_clients = #{exclusiveClients,jdbcType=VARCHAR},
+      </if>
+      <if test="exclusiveClientsdetail != null" >
+        exclusive_clientsdetail = #{exclusiveClientsdetail,jdbcType=VARCHAR},
+      </if>
+      <if test="waterId != null" >
+        water_id = #{waterId,jdbcType=INTEGER},
+      </if>
+      <if test="blockReason != null" >
+        block_reason = #{blockReason,jdbcType=VARCHAR},
+      </if>
+      <if test="hasNegative != null" >
+        has_negative = #{hasNegative,jdbcType=VARCHAR},
+      </if>
+      <if test="productLimitation != null" >
+        product_limitation = #{productLimitation,jdbcType=VARCHAR},
+      </if>
+      <if test="apiSend != null" >
+        api_send = #{apiSend,jdbcType=VARCHAR},
+      </if>
+      <if test="defaultQualityRank != null" >
+        default_quality_rank = #{defaultQualityRank,jdbcType=INTEGER},
+      </if>
+      <if test="haveUuright != null" >
+        have_uuright = #{haveUuright,jdbcType=INTEGER},
+      </if>
+      <if test="deductCost != null" >
+        deduct_cost = #{deductCost,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vcg.provider.model.Collection" >
+    update collection
+    set provider_id = #{providerId,jdbcType=INTEGER},
+      contract_id = #{contractId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      original_name = #{originalName,jdbcType=VARCHAR},
+      collection_code = #{collectionCode,jdbcType=VARCHAR},
+      asset_type = #{assetType,jdbcType=INTEGER},
+      asset_family = #{assetFamily,jdbcType=INTEGER},
+      license_type = #{licenseType,jdbcType=INTEGER},
+      royalty_rate = #{royaltyRate,jdbcType=VARCHAR},
+      auth_location = #{authLocation,jdbcType=VARCHAR},
+      brand_id = #{brandId,jdbcType=INTEGER},
+      available_status = #{availableStatus,jdbcType=INTEGER},
+      collection_level = #{collectionLevel,jdbcType=VARCHAR},
+      target_website = #{targetWebsite,jdbcType=VARCHAR},
+      content_topic = #{contentTopic,jdbcType=VARCHAR},
+      house_partner = #{housePartner,jdbcType=INTEGER},
+      owned_selfcontent = #{ownedSelfcontent,jdbcType=INTEGER},
+      wholly_owned = #{whollyOwned,jdbcType=INTEGER},
+      exclusive_auth = #{exclusiveAuth,jdbcType=VARCHAR},
+      ftp_subpath = #{ftpSubpath,jdbcType=VARCHAR},
+      is_commercial = #{isCommercial,jdbcType=INTEGER},
+      is_commercial_note = #{isCommercialNote,jdbcType=VARCHAR},
+      is_exclusivesell = #{isExclusivesell,jdbcType=VARCHAR},
+      is_exclusivesell_note = #{isExclusivesellNote,jdbcType=VARCHAR},
+      eza_enabled = #{ezaEnabled,jdbcType=INTEGER},
+      is_subscription = #{isSubscription,jdbcType=INTEGER},
+      is_subscription_note = #{isSubscriptionNote,jdbcType=VARCHAR},
+      min_price = #{minPrice,jdbcType=INTEGER},
+      min_price_note = #{minPriceNote,jdbcType=VARCHAR},
+      sales_restrictions = #{salesRestrictions,jdbcType=VARCHAR},
+      other_restrictions = #{otherRestrictions,jdbcType=VARCHAR},
+      model_release = #{modelRelease,jdbcType=VARCHAR},
+      collection_introduction = #{collectionIntroduction,jdbcType=VARCHAR},
+      sell_point = #{sellPoint,jdbcType=VARCHAR},
+      target_market = #{targetMarket,jdbcType=VARCHAR},
+      collection_history = #{collectionHistory,jdbcType=VARCHAR},
+      price_limitlevel = #{priceLimitlevel,jdbcType=VARCHAR},
+      price_limitdetail = #{priceLimitdetail,jdbcType=VARCHAR},
+      business_owner = #{businessOwner,jdbcType=VARCHAR},
+      notes = #{notes,jdbcType=VARCHAR},
+      modified_by = #{modifiedBy,jdbcType=INTEGER},
+      exclusive_strategy = #{exclusiveStrategy,jdbcType=VARCHAR},
+      exclusive_strategydetail = #{exclusiveStrategydetail,jdbcType=VARCHAR},
+      exclusive_clients = #{exclusiveClients,jdbcType=VARCHAR},
+      exclusive_clientsdetail = #{exclusiveClientsdetail,jdbcType=VARCHAR},
+      water_id = #{waterId,jdbcType=INTEGER},
+      block_reason = #{blockReason,jdbcType=VARCHAR},
+      has_negative = #{hasNegative,jdbcType=VARCHAR},
+      product_limitation = #{productLimitation,jdbcType=VARCHAR},
+      api_send = #{apiSend,jdbcType=VARCHAR},
+      default_quality_rank = #{defaultQualityRank,jdbcType=INTEGER},
+      have_uuright = #{haveUuright,jdbcType=INTEGER},
+      deduct_cost = #{deductCost,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <sql id="Base_Column_List_Dy" >
+    <if test="fields==null" >
+      <include refid="Base_Column_List" />
+    </if>
+    <if test="fields!=null" >
+      <foreach collection="fields" item="field" separator="," >
+        ${field}
+      </foreach>
+    </if>
+  </sql>
+</mapper>

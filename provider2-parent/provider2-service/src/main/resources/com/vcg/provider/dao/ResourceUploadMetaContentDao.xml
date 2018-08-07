@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcg.provider.dao.ResourceUploadMetaContentDao" >
+  <resultMap id="BaseResultMap" type="com.vcg.provider.model.ResourceUploadMetaContent" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="image_name" property="imageName" jdbcType="VARCHAR" />
+    <result column="provider_id" property="providerId" jdbcType="INTEGER" />
+    <result column="batch_id" property="batchId" jdbcType="INTEGER" />
+    <result column="collection" property="collection" jdbcType="VARCHAR" />
+    <result column="caption" property="caption" jdbcType="VARCHAR" />
+    <result column="license_type" property="licenseType" jdbcType="INTEGER" />
+    <result column="keywords" property="keywords" jdbcType="VARCHAR" />
+    <result column="model_release" property="modelRelease" jdbcType="INTEGER" />
+    <result column="model_release_name" property="modelReleaseName" jdbcType="VARCHAR" />
+    <result column="property_release" property="propertyRelease" jdbcType="INTEGER" />
+    <result column="property_release_name" property="propertyReleaseName" jdbcType="VARCHAR" />
+    <result column="credit_line" property="creditLine" jdbcType="VARCHAR" />
+    <result column="rest" property="rest" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="media_type" property="mediaType" jdbcType="INTEGER" />
+    <result column="color_type" property="colorType" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, image_name, provider_id, batch_id, collection, caption, license_type, keywords, 
+    model_release, model_release_name, property_release, property_release_name, credit_line, 
+    rest, create_date, media_type, color_type
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.vcg.provider.model.query.ResourceUploadMetaContentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List_Dy" />
+    from resource_upload_meta_content
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from resource_upload_meta_content
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from resource_upload_meta_content
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.vcg.provider.model.query.ResourceUploadMetaContentExample" >
+    delete from resource_upload_meta_content
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.vcg.provider.model.ResourceUploadMetaContent" useGeneratedKeys="true" keyProperty="id" >
+    insert into resource_upload_meta_content (id, image_name, provider_id, 
+      batch_id, collection, caption, 
+      license_type, keywords, model_release, 
+      model_release_name, property_release, property_release_name, 
+      credit_line, rest, create_date, 
+      media_type, color_type)
+    values (#{id,jdbcType=INTEGER}, #{imageName,jdbcType=VARCHAR}, #{providerId,jdbcType=INTEGER}, 
+      #{batchId,jdbcType=INTEGER}, #{collection,jdbcType=VARCHAR}, #{caption,jdbcType=VARCHAR}, 
+      #{licenseType,jdbcType=INTEGER}, #{keywords,jdbcType=VARCHAR}, #{modelRelease,jdbcType=INTEGER}, 
+      #{modelReleaseName,jdbcType=VARCHAR}, #{propertyRelease,jdbcType=INTEGER}, #{propertyReleaseName,jdbcType=VARCHAR}, 
+      #{creditLine,jdbcType=VARCHAR}, #{rest,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{mediaType,jdbcType=INTEGER}, #{colorType,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vcg.provider.model.ResourceUploadMetaContent" useGeneratedKeys="true" keyProperty="id" >
+    insert into resource_upload_meta_content
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="imageName != null" >
+        image_name,
+      </if>
+      <if test="providerId != null" >
+        provider_id,
+      </if>
+      <if test="batchId != null" >
+        batch_id,
+      </if>
+      <if test="collection != null" >
+        collection,
+      </if>
+      <if test="caption != null" >
+        caption,
+      </if>
+      <if test="licenseType != null" >
+        license_type,
+      </if>
+      <if test="keywords != null" >
+        keywords,
+      </if>
+      <if test="modelRelease != null" >
+        model_release,
+      </if>
+      <if test="modelReleaseName != null" >
+        model_release_name,
+      </if>
+      <if test="propertyRelease != null" >
+        property_release,
+      </if>
+      <if test="propertyReleaseName != null" >
+        property_release_name,
+      </if>
+      <if test="creditLine != null" >
+        credit_line,
+      </if>
+      <if test="rest != null" >
+        rest,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="mediaType != null" >
+        media_type,
+      </if>
+      <if test="colorType != null" >
+        color_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="imageName != null" >
+        #{imageName,jdbcType=VARCHAR},
+      </if>
+      <if test="providerId != null" >
+        #{providerId,jdbcType=INTEGER},
+      </if>
+      <if test="batchId != null" >
+        #{batchId,jdbcType=INTEGER},
+      </if>
+      <if test="collection != null" >
+        #{collection,jdbcType=VARCHAR},
+      </if>
+      <if test="caption != null" >
+        #{caption,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseType != null" >
+        #{licenseType,jdbcType=INTEGER},
+      </if>
+      <if test="keywords != null" >
+        #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="modelRelease != null" >
+        #{modelRelease,jdbcType=INTEGER},
+      </if>
+      <if test="modelReleaseName != null" >
+        #{modelReleaseName,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyRelease != null" >
+        #{propertyRelease,jdbcType=INTEGER},
+      </if>
+      <if test="propertyReleaseName != null" >
+        #{propertyReleaseName,jdbcType=VARCHAR},
+      </if>
+      <if test="creditLine != null" >
+        #{creditLine,jdbcType=VARCHAR},
+      </if>
+      <if test="rest != null" >
+        #{rest,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mediaType != null" >
+        #{mediaType,jdbcType=INTEGER},
+      </if>
+      <if test="colorType != null" >
+        #{colorType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" resultType="java.lang.Integer" parameterType="com.vcg.provider.model.query.ResourceUploadMetaContentExample" >
+    select count(*) from resource_upload_meta_content
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update resource_upload_meta_content
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.imageName != null" >
+        image_name = #{record.imageName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.providerId != null" >
+        provider_id = #{record.providerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.batchId != null" >
+        batch_id = #{record.batchId,jdbcType=INTEGER},
+      </if>
+      <if test="record.collection != null" >
+        collection = #{record.collection,jdbcType=VARCHAR},
+      </if>
+      <if test="record.caption != null" >
+        caption = #{record.caption,jdbcType=VARCHAR},
+      </if>
+      <if test="record.licenseType != null" >
+        license_type = #{record.licenseType,jdbcType=INTEGER},
+      </if>
+      <if test="record.keywords != null" >
+        keywords = #{record.keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modelRelease != null" >
+        model_release = #{record.modelRelease,jdbcType=INTEGER},
+      </if>
+      <if test="record.modelReleaseName != null" >
+        model_release_name = #{record.modelReleaseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.propertyRelease != null" >
+        property_release = #{record.propertyRelease,jdbcType=INTEGER},
+      </if>
+      <if test="record.propertyReleaseName != null" >
+        property_release_name = #{record.propertyReleaseName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creditLine != null" >
+        credit_line = #{record.creditLine,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rest != null" >
+        rest = #{record.rest,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.mediaType != null" >
+        media_type = #{record.mediaType,jdbcType=INTEGER},
+      </if>
+      <if test="record.colorType != null" >
+        color_type = #{record.colorType,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update resource_upload_meta_content
+    set id = #{record.id,jdbcType=INTEGER},
+      image_name = #{record.imageName,jdbcType=VARCHAR},
+      provider_id = #{record.providerId,jdbcType=INTEGER},
+      batch_id = #{record.batchId,jdbcType=INTEGER},
+      collection = #{record.collection,jdbcType=VARCHAR},
+      caption = #{record.caption,jdbcType=VARCHAR},
+      license_type = #{record.licenseType,jdbcType=INTEGER},
+      keywords = #{record.keywords,jdbcType=VARCHAR},
+      model_release = #{record.modelRelease,jdbcType=INTEGER},
+      model_release_name = #{record.modelReleaseName,jdbcType=VARCHAR},
+      property_release = #{record.propertyRelease,jdbcType=INTEGER},
+      property_release_name = #{record.propertyReleaseName,jdbcType=VARCHAR},
+      credit_line = #{record.creditLine,jdbcType=VARCHAR},
+      rest = #{record.rest,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      media_type = #{record.mediaType,jdbcType=INTEGER},
+      color_type = #{record.colorType,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vcg.provider.model.ResourceUploadMetaContent" >
+    update resource_upload_meta_content
+    <set >
+      <if test="imageName != null" >
+        image_name = #{imageName,jdbcType=VARCHAR},
+      </if>
+      <if test="providerId != null" >
+        provider_id = #{providerId,jdbcType=INTEGER},
+      </if>
+      <if test="batchId != null" >
+        batch_id = #{batchId,jdbcType=INTEGER},
+      </if>
+      <if test="collection != null" >
+        collection = #{collection,jdbcType=VARCHAR},
+      </if>
+      <if test="caption != null" >
+        caption = #{caption,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseType != null" >
+        license_type = #{licenseType,jdbcType=INTEGER},
+      </if>
+      <if test="keywords != null" >
+        keywords = #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="modelRelease != null" >
+        model_release = #{modelRelease,jdbcType=INTEGER},
+      </if>
+      <if test="modelReleaseName != null" >
+        model_release_name = #{modelReleaseName,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyRelease != null" >
+        property_release = #{propertyRelease,jdbcType=INTEGER},
+      </if>
+      <if test="propertyReleaseName != null" >
+        property_release_name = #{propertyReleaseName,jdbcType=VARCHAR},
+      </if>
+      <if test="creditLine != null" >
+        credit_line = #{creditLine,jdbcType=VARCHAR},
+      </if>
+      <if test="rest != null" >
+        rest = #{rest,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mediaType != null" >
+        media_type = #{mediaType,jdbcType=INTEGER},
+      </if>
+      <if test="colorType != null" >
+        color_type = #{colorType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vcg.provider.model.ResourceUploadMetaContent" >
+    update resource_upload_meta_content
+    set image_name = #{imageName,jdbcType=VARCHAR},
+      provider_id = #{providerId,jdbcType=INTEGER},
+      batch_id = #{batchId,jdbcType=INTEGER},
+      collection = #{collection,jdbcType=VARCHAR},
+      caption = #{caption,jdbcType=VARCHAR},
+      license_type = #{licenseType,jdbcType=INTEGER},
+      keywords = #{keywords,jdbcType=VARCHAR},
+      model_release = #{modelRelease,jdbcType=INTEGER},
+      model_release_name = #{modelReleaseName,jdbcType=VARCHAR},
+      property_release = #{propertyRelease,jdbcType=INTEGER},
+      property_release_name = #{propertyReleaseName,jdbcType=VARCHAR},
+      credit_line = #{creditLine,jdbcType=VARCHAR},
+      rest = #{rest,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      media_type = #{mediaType,jdbcType=INTEGER},
+      color_type = #{colorType,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <sql id="Base_Column_List_Dy" >
+    <if test="fields==null" >
+      <include refid="Base_Column_List" />
+    </if>
+    <if test="fields!=null" >
+      <foreach collection="fields" item="field" separator="," >
+        ${field}
+      </foreach>
+    </if>
+  </sql>
+</mapper>

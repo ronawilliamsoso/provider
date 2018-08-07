@@ -1,0 +1,62 @@
+
+server:
+  port: 8006
+
+spring:
+  #datasource
+  datasource:
+    name: production
+    #正式环境
+#    url: jdbc:mysql://rm-2ze497jki13z15q1s.mysql.rds.aliyuncs.com:3306/provider2?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+#    username: javaapp
+#    password: Vcg@2017java
+
+    #正式测试环境
+    url: jdbc:mysql://rm-2ze706b8kf9r56i14.mysql.rds.aliyuncs.com:3306/provider2?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+    username: javaapp
+    password: Vcg@2017java
+    maxActive: 200
+    initialSize: 2
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+    
+  redis: 
+    host: 7b4c5d6f0ebe48d2.redis.rds.aliyuncs.com
+    password: MoUcJkv4
+    port: 6379
+    pool:
+      max-idle: 8
+      min-idle: 0
+      max-active: 8
+      max-wait: -1
+
+oss:
+    isInternal: 1 #1外围2内网 3vpc网络
+    
+mepx:
+    notifyservice: https://500px.me/community/gic2/apply/changeStatus?token=f9479ccf304ea4b7c853ef1d3006be67
+    
+    
+custom:
+  htmlExeUrl: wkhtmltopdf
+  pdfout: /media/providerstamp/
+  sigout: /media/providerstamp/done/
+  signaturepfx: /media/providerstamp/signature/iSignature.pfx
+  signatureunitrustkey: /media/providerstamp/unitrust/unitrust.key
+  signaturetemp: /media/providerstamp/temp
+  cutpictures: /media/providerstamp/temp  
+  
+interface: 
+  sousuoUrl: http://172.16.240.58:9100/v3/_search?_client_=
+  keywordUrl: http://keyword.vcg.csdn.net/
+  
+drewdatajob:
+    shouldStartJob: 1 #0开发环境 1测试环境 1:生产环境  

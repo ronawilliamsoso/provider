@@ -1,0 +1,808 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcg.provider.dao.ContractApplicationDao" >
+  <resultMap id="BaseResultMap" type="com.vcg.provider.model.ContractApplication" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="asset_family" property="assetFamily" jdbcType="INTEGER" />
+    <result column="contract_id" property="contractId" jdbcType="VARCHAR" />
+    <result column="provider_id" property="providerId" jdbcType="INTEGER" />
+    <result column="pay_id" property="payId" jdbcType="INTEGER" />
+    <result column="provider_name" property="providerName" jdbcType="VARCHAR" />
+    <result column="contract_type" property="contractType" jdbcType="INTEGER" />
+    <result column="contract_name" property="contractName" jdbcType="VARCHAR" />
+    <result column="deadline" property="deadline" jdbcType="VARCHAR" />
+    <result column="sign_date" property="signDate" jdbcType="TIMESTAMP" />
+    <result column="begin_date" property="beginDate" jdbcType="TIMESTAMP" />
+    <result column="end_date" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="payment_method" property="paymentMethod" jdbcType="VARCHAR" />
+    <result column="bond" property="bond" jdbcType="VARCHAR" />
+    <result column="settlement_cycle" property="settlementCycle" jdbcType="VARCHAR" />
+    <result column="contract_status" property="contractStatus" jdbcType="INTEGER" />
+    <result column="auditing_status" property="auditingStatus" jdbcType="INTEGER" />
+    <result column="credit_line" property="creditLine" jdbcType="VARCHAR" />
+    <result column="agent_name" property="agentName" jdbcType="VARCHAR" />
+    <result column="creative_rate" property="creativeRate" jdbcType="VARCHAR" />
+    <result column="edit_rate" property="editRate" jdbcType="VARCHAR" />
+    <result column="exclusive_auth" property="exclusiveAuth" jdbcType="VARCHAR" />
+    <result column="pay_method_name" property="payMethodName" jdbcType="VARCHAR" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="branch_bankname" property="branchBankname" jdbcType="VARCHAR" />
+    <result column="payee_name" property="payeeName" jdbcType="VARCHAR" />
+    <result column="payee_number" property="payeeNumber" jdbcType="VARCHAR" />
+    <result column="swift_code" property="swiftCode" jdbcType="VARCHAR" />
+    <result column="bank_address" property="bankAddress" jdbcType="VARCHAR" />
+    <result column="open_accountaddress" property="openAccountaddress" jdbcType="VARCHAR" />
+    <result column="currency" property="currency" jdbcType="INTEGER" />
+    <result column="iban" property="iban" jdbcType="VARCHAR" />
+    <result column="bank_remark" property="bankRemark" jdbcType="VARCHAR" />
+    <result column="tax_code" property="taxCode" jdbcType="VARCHAR" />
+    <result column="user_center_id" property="userCenterId" jdbcType="VARCHAR" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="contract_zhuti" property="contractZhuti" jdbcType="VARCHAR" />
+    <result column="reason" property="reason" jdbcType="VARCHAR" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, asset_family, contract_id, provider_id, pay_id, provider_name, contract_type, 
+    contract_name, deadline, sign_date, begin_date, end_date, payment_method, bond, settlement_cycle, 
+    contract_status, auditing_status, credit_line, agent_name, creative_rate, edit_rate, 
+    exclusive_auth, pay_method_name, bank_name, branch_bankname, payee_name, payee_number, 
+    swift_code, bank_address, open_accountaddress, currency, iban, bank_remark, tax_code, 
+    user_center_id, country, contract_zhuti, reason, created_time, created_by, updated_time, 
+    updated_by
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.vcg.provider.model.query.ContractApplicationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List_Dy" />
+    from contract_application
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from contract_application
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from contract_application
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.vcg.provider.model.query.ContractApplicationExample" >
+    delete from contract_application
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.vcg.provider.model.ContractApplication" useGeneratedKeys="true" keyProperty="id" >
+    insert into contract_application (id, asset_family, contract_id, 
+      provider_id, pay_id, provider_name, 
+      contract_type, contract_name, deadline, 
+      sign_date, begin_date, end_date, 
+      payment_method, bond, settlement_cycle, 
+      contract_status, auditing_status, credit_line, 
+      agent_name, creative_rate, edit_rate, 
+      exclusive_auth, pay_method_name, bank_name, 
+      branch_bankname, payee_name, payee_number, 
+      swift_code, bank_address, open_accountaddress, 
+      currency, iban, bank_remark, 
+      tax_code, user_center_id, country, 
+      contract_zhuti, reason, created_time, 
+      created_by, updated_time, updated_by
+      )
+    values (#{id,jdbcType=INTEGER}, #{assetFamily,jdbcType=INTEGER}, #{contractId,jdbcType=VARCHAR}, 
+      #{providerId,jdbcType=INTEGER}, #{payId,jdbcType=INTEGER}, #{providerName,jdbcType=VARCHAR}, 
+      #{contractType,jdbcType=INTEGER}, #{contractName,jdbcType=VARCHAR}, #{deadline,jdbcType=VARCHAR}, 
+      #{signDate,jdbcType=TIMESTAMP}, #{beginDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP}, 
+      #{paymentMethod,jdbcType=VARCHAR}, #{bond,jdbcType=VARCHAR}, #{settlementCycle,jdbcType=VARCHAR}, 
+      #{contractStatus,jdbcType=INTEGER}, #{auditingStatus,jdbcType=INTEGER}, #{creditLine,jdbcType=VARCHAR}, 
+      #{agentName,jdbcType=VARCHAR}, #{creativeRate,jdbcType=VARCHAR}, #{editRate,jdbcType=VARCHAR}, 
+      #{exclusiveAuth,jdbcType=VARCHAR}, #{payMethodName,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, 
+      #{branchBankname,jdbcType=VARCHAR}, #{payeeName,jdbcType=VARCHAR}, #{payeeNumber,jdbcType=VARCHAR}, 
+      #{swiftCode,jdbcType=VARCHAR}, #{bankAddress,jdbcType=VARCHAR}, #{openAccountaddress,jdbcType=VARCHAR}, 
+      #{currency,jdbcType=INTEGER}, #{iban,jdbcType=VARCHAR}, #{bankRemark,jdbcType=VARCHAR}, 
+      #{taxCode,jdbcType=VARCHAR}, #{userCenterId,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, 
+      #{contractZhuti,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{createdBy,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.vcg.provider.model.ContractApplication" useGeneratedKeys="true" keyProperty="id" >
+    insert into contract_application
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="assetFamily != null" >
+        asset_family,
+      </if>
+      <if test="contractId != null" >
+        contract_id,
+      </if>
+      <if test="providerId != null" >
+        provider_id,
+      </if>
+      <if test="payId != null" >
+        pay_id,
+      </if>
+      <if test="providerName != null" >
+        provider_name,
+      </if>
+      <if test="contractType != null" >
+        contract_type,
+      </if>
+      <if test="contractName != null" >
+        contract_name,
+      </if>
+      <if test="deadline != null" >
+        deadline,
+      </if>
+      <if test="signDate != null" >
+        sign_date,
+      </if>
+      <if test="beginDate != null" >
+        begin_date,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+      <if test="paymentMethod != null" >
+        payment_method,
+      </if>
+      <if test="bond != null" >
+        bond,
+      </if>
+      <if test="settlementCycle != null" >
+        settlement_cycle,
+      </if>
+      <if test="contractStatus != null" >
+        contract_status,
+      </if>
+      <if test="auditingStatus != null" >
+        auditing_status,
+      </if>
+      <if test="creditLine != null" >
+        credit_line,
+      </if>
+      <if test="agentName != null" >
+        agent_name,
+      </if>
+      <if test="creativeRate != null" >
+        creative_rate,
+      </if>
+      <if test="editRate != null" >
+        edit_rate,
+      </if>
+      <if test="exclusiveAuth != null" >
+        exclusive_auth,
+      </if>
+      <if test="payMethodName != null" >
+        pay_method_name,
+      </if>
+      <if test="bankName != null" >
+        bank_name,
+      </if>
+      <if test="branchBankname != null" >
+        branch_bankname,
+      </if>
+      <if test="payeeName != null" >
+        payee_name,
+      </if>
+      <if test="payeeNumber != null" >
+        payee_number,
+      </if>
+      <if test="swiftCode != null" >
+        swift_code,
+      </if>
+      <if test="bankAddress != null" >
+        bank_address,
+      </if>
+      <if test="openAccountaddress != null" >
+        open_accountaddress,
+      </if>
+      <if test="currency != null" >
+        currency,
+      </if>
+      <if test="iban != null" >
+        iban,
+      </if>
+      <if test="bankRemark != null" >
+        bank_remark,
+      </if>
+      <if test="taxCode != null" >
+        tax_code,
+      </if>
+      <if test="userCenterId != null" >
+        user_center_id,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="contractZhuti != null" >
+        contract_zhuti,
+      </if>
+      <if test="reason != null" >
+        reason,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="updatedBy != null" >
+        updated_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="assetFamily != null" >
+        #{assetFamily,jdbcType=INTEGER},
+      </if>
+      <if test="contractId != null" >
+        #{contractId,jdbcType=VARCHAR},
+      </if>
+      <if test="providerId != null" >
+        #{providerId,jdbcType=INTEGER},
+      </if>
+      <if test="payId != null" >
+        #{payId,jdbcType=INTEGER},
+      </if>
+      <if test="providerName != null" >
+        #{providerName,jdbcType=VARCHAR},
+      </if>
+      <if test="contractType != null" >
+        #{contractType,jdbcType=INTEGER},
+      </if>
+      <if test="contractName != null" >
+        #{contractName,jdbcType=VARCHAR},
+      </if>
+      <if test="deadline != null" >
+        #{deadline,jdbcType=VARCHAR},
+      </if>
+      <if test="signDate != null" >
+        #{signDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="beginDate != null" >
+        #{beginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paymentMethod != null" >
+        #{paymentMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="bond != null" >
+        #{bond,jdbcType=VARCHAR},
+      </if>
+      <if test="settlementCycle != null" >
+        #{settlementCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="contractStatus != null" >
+        #{contractStatus,jdbcType=INTEGER},
+      </if>
+      <if test="auditingStatus != null" >
+        #{auditingStatus,jdbcType=INTEGER},
+      </if>
+      <if test="creditLine != null" >
+        #{creditLine,jdbcType=VARCHAR},
+      </if>
+      <if test="agentName != null" >
+        #{agentName,jdbcType=VARCHAR},
+      </if>
+      <if test="creativeRate != null" >
+        #{creativeRate,jdbcType=VARCHAR},
+      </if>
+      <if test="editRate != null" >
+        #{editRate,jdbcType=VARCHAR},
+      </if>
+      <if test="exclusiveAuth != null" >
+        #{exclusiveAuth,jdbcType=VARCHAR},
+      </if>
+      <if test="payMethodName != null" >
+        #{payMethodName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="branchBankname != null" >
+        #{branchBankname,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeName != null" >
+        #{payeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeNumber != null" >
+        #{payeeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="swiftCode != null" >
+        #{swiftCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAddress != null" >
+        #{bankAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="openAccountaddress != null" >
+        #{openAccountaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null" >
+        #{currency,jdbcType=INTEGER},
+      </if>
+      <if test="iban != null" >
+        #{iban,jdbcType=VARCHAR},
+      </if>
+      <if test="bankRemark != null" >
+        #{bankRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="taxCode != null" >
+        #{taxCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userCenterId != null" >
+        #{userCenterId,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="contractZhuti != null" >
+        #{contractZhuti,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" resultType="java.lang.Integer" parameterType="com.vcg.provider.model.query.ContractApplicationExample" >
+    select count(*) from contract_application
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update contract_application
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.assetFamily != null" >
+        asset_family = #{record.assetFamily,jdbcType=INTEGER},
+      </if>
+      <if test="record.contractId != null" >
+        contract_id = #{record.contractId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.providerId != null" >
+        provider_id = #{record.providerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.payId != null" >
+        pay_id = #{record.payId,jdbcType=INTEGER},
+      </if>
+      <if test="record.providerName != null" >
+        provider_name = #{record.providerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractType != null" >
+        contract_type = #{record.contractType,jdbcType=INTEGER},
+      </if>
+      <if test="record.contractName != null" >
+        contract_name = #{record.contractName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deadline != null" >
+        deadline = #{record.deadline,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signDate != null" >
+        sign_date = #{record.signDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.beginDate != null" >
+        begin_date = #{record.beginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endDate != null" >
+        end_date = #{record.endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.paymentMethod != null" >
+        payment_method = #{record.paymentMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bond != null" >
+        bond = #{record.bond,jdbcType=VARCHAR},
+      </if>
+      <if test="record.settlementCycle != null" >
+        settlement_cycle = #{record.settlementCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractStatus != null" >
+        contract_status = #{record.contractStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.auditingStatus != null" >
+        auditing_status = #{record.auditingStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.creditLine != null" >
+        credit_line = #{record.creditLine,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agentName != null" >
+        agent_name = #{record.agentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creativeRate != null" >
+        creative_rate = #{record.creativeRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.editRate != null" >
+        edit_rate = #{record.editRate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exclusiveAuth != null" >
+        exclusive_auth = #{record.exclusiveAuth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payMethodName != null" >
+        pay_method_name = #{record.payMethodName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankName != null" >
+        bank_name = #{record.bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.branchBankname != null" >
+        branch_bankname = #{record.branchBankname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payeeName != null" >
+        payee_name = #{record.payeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payeeNumber != null" >
+        payee_number = #{record.payeeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.swiftCode != null" >
+        swift_code = #{record.swiftCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankAddress != null" >
+        bank_address = #{record.bankAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openAccountaddress != null" >
+        open_accountaddress = #{record.openAccountaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currency != null" >
+        currency = #{record.currency,jdbcType=INTEGER},
+      </if>
+      <if test="record.iban != null" >
+        iban = #{record.iban,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankRemark != null" >
+        bank_remark = #{record.bankRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taxCode != null" >
+        tax_code = #{record.taxCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userCenterId != null" >
+        user_center_id = #{record.userCenterId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.country != null" >
+        country = #{record.country,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contractZhuti != null" >
+        contract_zhuti = #{record.contractZhuti,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reason != null" >
+        reason = #{record.reason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdTime != null" >
+        created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdBy != null" >
+        created_by = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedTime != null" >
+        updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedBy != null" >
+        updated_by = #{record.updatedBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update contract_application
+    set id = #{record.id,jdbcType=INTEGER},
+      asset_family = #{record.assetFamily,jdbcType=INTEGER},
+      contract_id = #{record.contractId,jdbcType=VARCHAR},
+      provider_id = #{record.providerId,jdbcType=INTEGER},
+      pay_id = #{record.payId,jdbcType=INTEGER},
+      provider_name = #{record.providerName,jdbcType=VARCHAR},
+      contract_type = #{record.contractType,jdbcType=INTEGER},
+      contract_name = #{record.contractName,jdbcType=VARCHAR},
+      deadline = #{record.deadline,jdbcType=VARCHAR},
+      sign_date = #{record.signDate,jdbcType=TIMESTAMP},
+      begin_date = #{record.beginDate,jdbcType=TIMESTAMP},
+      end_date = #{record.endDate,jdbcType=TIMESTAMP},
+      payment_method = #{record.paymentMethod,jdbcType=VARCHAR},
+      bond = #{record.bond,jdbcType=VARCHAR},
+      settlement_cycle = #{record.settlementCycle,jdbcType=VARCHAR},
+      contract_status = #{record.contractStatus,jdbcType=INTEGER},
+      auditing_status = #{record.auditingStatus,jdbcType=INTEGER},
+      credit_line = #{record.creditLine,jdbcType=VARCHAR},
+      agent_name = #{record.agentName,jdbcType=VARCHAR},
+      creative_rate = #{record.creativeRate,jdbcType=VARCHAR},
+      edit_rate = #{record.editRate,jdbcType=VARCHAR},
+      exclusive_auth = #{record.exclusiveAuth,jdbcType=VARCHAR},
+      pay_method_name = #{record.payMethodName,jdbcType=VARCHAR},
+      bank_name = #{record.bankName,jdbcType=VARCHAR},
+      branch_bankname = #{record.branchBankname,jdbcType=VARCHAR},
+      payee_name = #{record.payeeName,jdbcType=VARCHAR},
+      payee_number = #{record.payeeNumber,jdbcType=VARCHAR},
+      swift_code = #{record.swiftCode,jdbcType=VARCHAR},
+      bank_address = #{record.bankAddress,jdbcType=VARCHAR},
+      open_accountaddress = #{record.openAccountaddress,jdbcType=VARCHAR},
+      currency = #{record.currency,jdbcType=INTEGER},
+      iban = #{record.iban,jdbcType=VARCHAR},
+      bank_remark = #{record.bankRemark,jdbcType=VARCHAR},
+      tax_code = #{record.taxCode,jdbcType=VARCHAR},
+      user_center_id = #{record.userCenterId,jdbcType=VARCHAR},
+      country = #{record.country,jdbcType=VARCHAR},
+      contract_zhuti = #{record.contractZhuti,jdbcType=VARCHAR},
+      reason = #{record.reason,jdbcType=VARCHAR},
+      created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      created_by = #{record.createdBy,jdbcType=VARCHAR},
+      updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      updated_by = #{record.updatedBy,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vcg.provider.model.ContractApplication" >
+    update contract_application
+    <set >
+      <if test="assetFamily != null" >
+        asset_family = #{assetFamily,jdbcType=INTEGER},
+      </if>
+      <if test="contractId != null" >
+        contract_id = #{contractId,jdbcType=VARCHAR},
+      </if>
+      <if test="providerId != null" >
+        provider_id = #{providerId,jdbcType=INTEGER},
+      </if>
+      <if test="payId != null" >
+        pay_id = #{payId,jdbcType=INTEGER},
+      </if>
+      <if test="providerName != null" >
+        provider_name = #{providerName,jdbcType=VARCHAR},
+      </if>
+      <if test="contractType != null" >
+        contract_type = #{contractType,jdbcType=INTEGER},
+      </if>
+      <if test="contractName != null" >
+        contract_name = #{contractName,jdbcType=VARCHAR},
+      </if>
+      <if test="deadline != null" >
+        deadline = #{deadline,jdbcType=VARCHAR},
+      </if>
+      <if test="signDate != null" >
+        sign_date = #{signDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="beginDate != null" >
+        begin_date = #{beginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paymentMethod != null" >
+        payment_method = #{paymentMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="bond != null" >
+        bond = #{bond,jdbcType=VARCHAR},
+      </if>
+      <if test="settlementCycle != null" >
+        settlement_cycle = #{settlementCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="contractStatus != null" >
+        contract_status = #{contractStatus,jdbcType=INTEGER},
+      </if>
+      <if test="auditingStatus != null" >
+        auditing_status = #{auditingStatus,jdbcType=INTEGER},
+      </if>
+      <if test="creditLine != null" >
+        credit_line = #{creditLine,jdbcType=VARCHAR},
+      </if>
+      <if test="agentName != null" >
+        agent_name = #{agentName,jdbcType=VARCHAR},
+      </if>
+      <if test="creativeRate != null" >
+        creative_rate = #{creativeRate,jdbcType=VARCHAR},
+      </if>
+      <if test="editRate != null" >
+        edit_rate = #{editRate,jdbcType=VARCHAR},
+      </if>
+      <if test="exclusiveAuth != null" >
+        exclusive_auth = #{exclusiveAuth,jdbcType=VARCHAR},
+      </if>
+      <if test="payMethodName != null" >
+        pay_method_name = #{payMethodName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="branchBankname != null" >
+        branch_bankname = #{branchBankname,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeName != null" >
+        payee_name = #{payeeName,jdbcType=VARCHAR},
+      </if>
+      <if test="payeeNumber != null" >
+        payee_number = #{payeeNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="swiftCode != null" >
+        swift_code = #{swiftCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAddress != null" >
+        bank_address = #{bankAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="openAccountaddress != null" >
+        open_accountaddress = #{openAccountaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="currency != null" >
+        currency = #{currency,jdbcType=INTEGER},
+      </if>
+      <if test="iban != null" >
+        iban = #{iban,jdbcType=VARCHAR},
+      </if>
+      <if test="bankRemark != null" >
+        bank_remark = #{bankRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="taxCode != null" >
+        tax_code = #{taxCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userCenterId != null" >
+        user_center_id = #{userCenterId,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="contractZhuti != null" >
+        contract_zhuti = #{contractZhuti,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null" >
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vcg.provider.model.ContractApplication" >
+    update contract_application
+    set asset_family = #{assetFamily,jdbcType=INTEGER},
+      contract_id = #{contractId,jdbcType=VARCHAR},
+      provider_id = #{providerId,jdbcType=INTEGER},
+      pay_id = #{payId,jdbcType=INTEGER},
+      provider_name = #{providerName,jdbcType=VARCHAR},
+      contract_type = #{contractType,jdbcType=INTEGER},
+      contract_name = #{contractName,jdbcType=VARCHAR},
+      deadline = #{deadline,jdbcType=VARCHAR},
+      sign_date = #{signDate,jdbcType=TIMESTAMP},
+      begin_date = #{beginDate,jdbcType=TIMESTAMP},
+      end_date = #{endDate,jdbcType=TIMESTAMP},
+      payment_method = #{paymentMethod,jdbcType=VARCHAR},
+      bond = #{bond,jdbcType=VARCHAR},
+      settlement_cycle = #{settlementCycle,jdbcType=VARCHAR},
+      contract_status = #{contractStatus,jdbcType=INTEGER},
+      auditing_status = #{auditingStatus,jdbcType=INTEGER},
+      credit_line = #{creditLine,jdbcType=VARCHAR},
+      agent_name = #{agentName,jdbcType=VARCHAR},
+      creative_rate = #{creativeRate,jdbcType=VARCHAR},
+      edit_rate = #{editRate,jdbcType=VARCHAR},
+      exclusive_auth = #{exclusiveAuth,jdbcType=VARCHAR},
+      pay_method_name = #{payMethodName,jdbcType=VARCHAR},
+      bank_name = #{bankName,jdbcType=VARCHAR},
+      branch_bankname = #{branchBankname,jdbcType=VARCHAR},
+      payee_name = #{payeeName,jdbcType=VARCHAR},
+      payee_number = #{payeeNumber,jdbcType=VARCHAR},
+      swift_code = #{swiftCode,jdbcType=VARCHAR},
+      bank_address = #{bankAddress,jdbcType=VARCHAR},
+      open_accountaddress = #{openAccountaddress,jdbcType=VARCHAR},
+      currency = #{currency,jdbcType=INTEGER},
+      iban = #{iban,jdbcType=VARCHAR},
+      bank_remark = #{bankRemark,jdbcType=VARCHAR},
+      tax_code = #{taxCode,jdbcType=VARCHAR},
+      user_center_id = #{userCenterId,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      contract_zhuti = #{contractZhuti,jdbcType=VARCHAR},
+      reason = #{reason,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <sql id="Base_Column_List_Dy" >
+    <if test="fields==null" >
+      <include refid="Base_Column_List" />
+    </if>
+    <if test="fields!=null" >
+      <foreach collection="fields" item="field" separator="," >
+        ${field}
+      </foreach>
+    </if>
+  </sql>
+</mapper>

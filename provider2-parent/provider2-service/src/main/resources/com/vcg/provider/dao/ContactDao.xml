@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcg.provider.dao.ContactDao" >
+  <resultMap id="BaseResultMap" type="com.vcg.provider.model.Contact" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="provider_id" property="providerId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="job_title" property="jobTitle" jdbcType="VARCHAR" />
+    <result column="role" property="role" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="work_tel" property="workTel" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="fax" property="fax" jdbcType="VARCHAR" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="msn" property="msn" jdbcType="VARCHAR" />
+    <result column="weixin" property="weixin" jdbcType="VARCHAR" />
+    <result column="id_type" property="idType" jdbcType="INTEGER" />
+    <result column="id_num" property="idNum" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="skype" property="skype" jdbcType="VARCHAR" />
+    <result column="is_default" property="isDefault" jdbcType="INTEGER" />
+    <result column="other" property="other" jdbcType="VARCHAR" />
+    <result column="postcode" property="postcode" jdbcType="VARCHAR" />
+    <result column="emergency_name" property="emergencyName" jdbcType="VARCHAR" />
+    <result column="emergency_sex" property="emergencySex" jdbcType="INTEGER" />
+    <result column="emergency_IDNum" property="emergencyIdnum" jdbcType="VARCHAR" />
+    <result column="emergency_mobile" property="emergencyMobile" jdbcType="CHAR" />
+    <result column="emergency_address" property="emergencyAddress" jdbcType="VARCHAR" />
+    <result column="emergency_postcode" property="emergencyPostcode" jdbcType="CHAR" />
+    <result column="id_cardImgPath" property="idCardimgpath" jdbcType="VARCHAR" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, provider_id, name, sex, department, job_title, role, email, work_tel, mobile, 
+    fax, qq, msn, weixin, id_type, id_num, address, skype, is_default, other, postcode, 
+    emergency_name, emergency_sex, emergency_IDNum, emergency_mobile, emergency_address, 
+    emergency_postcode, id_cardImgPath, created_time, created_by, updated_time, updated_by
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.vcg.provider.model.query.ContactExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List_Dy" />
+    from contact
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from contact
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from contact
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.vcg.provider.model.query.ContactExample" >
+    delete from contact
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.vcg.provider.model.Contact" useGeneratedKeys="true" keyProperty="id" >
+    insert into contact (id, provider_id, name, 
+      sex, department, job_title, 
+      role, email, work_tel, 
+      mobile, fax, qq, msn, 
+      weixin, id_type, id_num, 
+      address, skype, is_default, 
+      other, postcode, emergency_name, 
+      emergency_sex, emergency_IDNum, emergency_mobile, 
+      emergency_address, emergency_postcode, id_cardImgPath, 
+      created_time, created_by, updated_time, 
+      updated_by)
+    values (#{id,jdbcType=INTEGER}, #{providerId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=INTEGER}, #{department,jdbcType=VARCHAR}, #{jobTitle,jdbcType=VARCHAR}, 
+      #{role,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{workTel,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{msn,jdbcType=VARCHAR}, 
+      #{weixin,jdbcType=VARCHAR}, #{idType,jdbcType=INTEGER}, #{idNum,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{skype,jdbcType=VARCHAR}, #{isDefault,jdbcType=INTEGER}, 
+      #{other,jdbcType=VARCHAR}, #{postcode,jdbcType=VARCHAR}, #{emergencyName,jdbcType=VARCHAR}, 
+      #{emergencySex,jdbcType=INTEGER}, #{emergencyIdnum,jdbcType=VARCHAR}, #{emergencyMobile,jdbcType=CHAR}, 
+      #{emergencyAddress,jdbcType=VARCHAR}, #{emergencyPostcode,jdbcType=CHAR}, #{idCardimgpath,jdbcType=VARCHAR}, 
+      #{createdTime,jdbcType=TIMESTAMP}, #{createdBy,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP}, 
+      #{updatedBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vcg.provider.model.Contact" useGeneratedKeys="true" keyProperty="id" >
+    insert into contact
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="providerId != null" >
+        provider_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="jobTitle != null" >
+        job_title,
+      </if>
+      <if test="role != null" >
+        role,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="workTel != null" >
+        work_tel,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="fax != null" >
+        fax,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="msn != null" >
+        msn,
+      </if>
+      <if test="weixin != null" >
+        weixin,
+      </if>
+      <if test="idType != null" >
+        id_type,
+      </if>
+      <if test="idNum != null" >
+        id_num,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="skype != null" >
+        skype,
+      </if>
+      <if test="isDefault != null" >
+        is_default,
+      </if>
+      <if test="other != null" >
+        other,
+      </if>
+      <if test="postcode != null" >
+        postcode,
+      </if>
+      <if test="emergencyName != null" >
+        emergency_name,
+      </if>
+      <if test="emergencySex != null" >
+        emergency_sex,
+      </if>
+      <if test="emergencyIdnum != null" >
+        emergency_IDNum,
+      </if>
+      <if test="emergencyMobile != null" >
+        emergency_mobile,
+      </if>
+      <if test="emergencyAddress != null" >
+        emergency_address,
+      </if>
+      <if test="emergencyPostcode != null" >
+        emergency_postcode,
+      </if>
+      <if test="idCardimgpath != null" >
+        id_cardImgPath,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="createdBy != null" >
+        created_by,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="updatedBy != null" >
+        updated_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="providerId != null" >
+        #{providerId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="jobTitle != null" >
+        #{jobTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="workTel != null" >
+        #{workTel,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="msn != null" >
+        #{msn,jdbcType=VARCHAR},
+      </if>
+      <if test="weixin != null" >
+        #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="idType != null" >
+        #{idType,jdbcType=INTEGER},
+      </if>
+      <if test="idNum != null" >
+        #{idNum,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="skype != null" >
+        #{skype,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null" >
+        #{isDefault,jdbcType=INTEGER},
+      </if>
+      <if test="other != null" >
+        #{other,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="emergencyName != null" >
+        #{emergencyName,jdbcType=VARCHAR},
+      </if>
+      <if test="emergencySex != null" >
+        #{emergencySex,jdbcType=INTEGER},
+      </if>
+      <if test="emergencyIdnum != null" >
+        #{emergencyIdnum,jdbcType=VARCHAR},
+      </if>
+      <if test="emergencyMobile != null" >
+        #{emergencyMobile,jdbcType=CHAR},
+      </if>
+      <if test="emergencyAddress != null" >
+        #{emergencyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="emergencyPostcode != null" >
+        #{emergencyPostcode,jdbcType=CHAR},
+      </if>
+      <if test="idCardimgpath != null" >
+        #{idCardimgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" resultType="java.lang.Integer" parameterType="com.vcg.provider.model.query.ContactExample" >
+    select count(*) from contact
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update contact
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.providerId != null" >
+        provider_id = #{record.providerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=INTEGER},
+      </if>
+      <if test="record.department != null" >
+        department = #{record.department,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jobTitle != null" >
+        job_title = #{record.jobTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.role != null" >
+        role = #{record.role,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workTel != null" >
+        work_tel = #{record.workTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fax != null" >
+        fax = #{record.fax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qq != null" >
+        qq = #{record.qq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msn != null" >
+        msn = #{record.msn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weixin != null" >
+        weixin = #{record.weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idType != null" >
+        id_type = #{record.idType,jdbcType=INTEGER},
+      </if>
+      <if test="record.idNum != null" >
+        id_num = #{record.idNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.skype != null" >
+        skype = #{record.skype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDefault != null" >
+        is_default = #{record.isDefault,jdbcType=INTEGER},
+      </if>
+      <if test="record.other != null" >
+        other = #{record.other,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postcode != null" >
+        postcode = #{record.postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emergencyName != null" >
+        emergency_name = #{record.emergencyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emergencySex != null" >
+        emergency_sex = #{record.emergencySex,jdbcType=INTEGER},
+      </if>
+      <if test="record.emergencyIdnum != null" >
+        emergency_IDNum = #{record.emergencyIdnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emergencyMobile != null" >
+        emergency_mobile = #{record.emergencyMobile,jdbcType=CHAR},
+      </if>
+      <if test="record.emergencyAddress != null" >
+        emergency_address = #{record.emergencyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emergencyPostcode != null" >
+        emergency_postcode = #{record.emergencyPostcode,jdbcType=CHAR},
+      </if>
+      <if test="record.idCardimgpath != null" >
+        id_cardImgPath = #{record.idCardimgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdTime != null" >
+        created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createdBy != null" >
+        created_by = #{record.createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedTime != null" >
+        updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedBy != null" >
+        updated_by = #{record.updatedBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update contact
+    set id = #{record.id,jdbcType=INTEGER},
+      provider_id = #{record.providerId,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=INTEGER},
+      department = #{record.department,jdbcType=VARCHAR},
+      job_title = #{record.jobTitle,jdbcType=VARCHAR},
+      role = #{record.role,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      work_tel = #{record.workTel,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      fax = #{record.fax,jdbcType=VARCHAR},
+      qq = #{record.qq,jdbcType=VARCHAR},
+      msn = #{record.msn,jdbcType=VARCHAR},
+      weixin = #{record.weixin,jdbcType=VARCHAR},
+      id_type = #{record.idType,jdbcType=INTEGER},
+      id_num = #{record.idNum,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      skype = #{record.skype,jdbcType=VARCHAR},
+      is_default = #{record.isDefault,jdbcType=INTEGER},
+      other = #{record.other,jdbcType=VARCHAR},
+      postcode = #{record.postcode,jdbcType=VARCHAR},
+      emergency_name = #{record.emergencyName,jdbcType=VARCHAR},
+      emergency_sex = #{record.emergencySex,jdbcType=INTEGER},
+      emergency_IDNum = #{record.emergencyIdnum,jdbcType=VARCHAR},
+      emergency_mobile = #{record.emergencyMobile,jdbcType=CHAR},
+      emergency_address = #{record.emergencyAddress,jdbcType=VARCHAR},
+      emergency_postcode = #{record.emergencyPostcode,jdbcType=CHAR},
+      id_cardImgPath = #{record.idCardimgpath,jdbcType=VARCHAR},
+      created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      created_by = #{record.createdBy,jdbcType=VARCHAR},
+      updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      updated_by = #{record.updatedBy,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vcg.provider.model.Contact" >
+    update contact
+    <set >
+      <if test="providerId != null" >
+        provider_id = #{providerId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="jobTitle != null" >
+        job_title = #{jobTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        role = #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="workTel != null" >
+        work_tel = #{workTel,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        fax = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="msn != null" >
+        msn = #{msn,jdbcType=VARCHAR},
+      </if>
+      <if test="weixin != null" >
+        weixin = #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="idType != null" >
+        id_type = #{idType,jdbcType=INTEGER},
+      </if>
+      <if test="idNum != null" >
+        id_num = #{idNum,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="skype != null" >
+        skype = #{skype,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null" >
+        is_default = #{isDefault,jdbcType=INTEGER},
+      </if>
+      <if test="other != null" >
+        other = #{other,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        postcode = #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="emergencyName != null" >
+        emergency_name = #{emergencyName,jdbcType=VARCHAR},
+      </if>
+      <if test="emergencySex != null" >
+        emergency_sex = #{emergencySex,jdbcType=INTEGER},
+      </if>
+      <if test="emergencyIdnum != null" >
+        emergency_IDNum = #{emergencyIdnum,jdbcType=VARCHAR},
+      </if>
+      <if test="emergencyMobile != null" >
+        emergency_mobile = #{emergencyMobile,jdbcType=CHAR},
+      </if>
+      <if test="emergencyAddress != null" >
+        emergency_address = #{emergencyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="emergencyPostcode != null" >
+        emergency_postcode = #{emergencyPostcode,jdbcType=CHAR},
+      </if>
+      <if test="idCardimgpath != null" >
+        id_cardImgPath = #{idCardimgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null" >
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null" >
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vcg.provider.model.Contact" >
+    update contact
+    set provider_id = #{providerId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      department = #{department,jdbcType=VARCHAR},
+      job_title = #{jobTitle,jdbcType=VARCHAR},
+      role = #{role,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      work_tel = #{workTel,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      msn = #{msn,jdbcType=VARCHAR},
+      weixin = #{weixin,jdbcType=VARCHAR},
+      id_type = #{idType,jdbcType=INTEGER},
+      id_num = #{idNum,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      skype = #{skype,jdbcType=VARCHAR},
+      is_default = #{isDefault,jdbcType=INTEGER},
+      other = #{other,jdbcType=VARCHAR},
+      postcode = #{postcode,jdbcType=VARCHAR},
+      emergency_name = #{emergencyName,jdbcType=VARCHAR},
+      emergency_sex = #{emergencySex,jdbcType=INTEGER},
+      emergency_IDNum = #{emergencyIdnum,jdbcType=VARCHAR},
+      emergency_mobile = #{emergencyMobile,jdbcType=CHAR},
+      emergency_address = #{emergencyAddress,jdbcType=VARCHAR},
+      emergency_postcode = #{emergencyPostcode,jdbcType=CHAR},
+      id_cardImgPath = #{idCardimgpath,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      updated_by = #{updatedBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <sql id="Base_Column_List_Dy" >
+    <if test="fields==null" >
+      <include refid="Base_Column_List" />
+    </if>
+    <if test="fields!=null" >
+      <foreach collection="fields" item="field" separator="," >
+        ${field}
+      </foreach>
+    </if>
+  </sql>
+</mapper>

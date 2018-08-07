@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.custom.ReportManage">
+ 
+	 
+ 
+	
+
+
+
+ 
+	<select id="gerenYijiReport" resultType="resultMap">
+		SELECT
+			r.sell_month,
+			SUM(r.sell_price) sell_total,
+			SUM(r.net_share) share_total
+		FROM
+			resource_sell r
+		<where>
+			<if test="sellMonth != null">
+				sell_month = #{sellMonth}
+			</if>
+			<if test="assetFamily != null">
+				and asset_Family = #{assetFamily}
+			</if>
+			<if test="agentType != null">
+				and agent_type = #{agentType}
+			</if>
+		</where>
+		GROUP BY r.sell_month
+		order by r.sell_month desc
+	</select>
+
+	<select id="selectSumIntoMonth" resultType="resultMap">
+		SELECT
+			s.provider_id,
+			s.provider_name,
+			s.agent_type,
+			s.sell_month,
+			s.asset_family,
+			SUM(s.sell_price) sell_price,
+			SUM(s.net_share) net_share,
+			COUNT(s.id) sell_count
+		FROM
+			resource_sell s
+		<where>
+			<if test="sellMonth != null">
+				sell_month = #{sellMonth}
+			</if>
+ 
+		</where>
+		GROUP BY
+			s.provider_id
+ 
+	</select>
+	
+   <select id="editSumByProviderId" resultType="resultMap">
+		SELECT
+			SUM(share_total) share_total
+		FROM
+			resource_sell_month 
+ 
+		<where>
+			<if test="providerId != null">
+				provider_id = #{providerId}
+			</if>
+			
+		 <if test="sellMonth !=null">
+    		 and sell_month in
+    		 <foreach collection="sellMonth" item="listItem" open="(" close=")" separator="," >
+                 #{listItem}
+             </foreach>
+    	</if>
+			AND asset_family = 1
+ 
+		</where>
+	 
+ 
+	</select>
+	
+    <select id="creativeSumByProviderId" resultType="resultMap">
+		SELECT
+			SUM(sell_total) sell_total_fee,
+	        SUM(share_total) cost_total_fee
+		FROM
+			resource_sell_month 
+ 
+		<where>
+			<if test="providerId != null">
+				provider_id = #{providerId}
+			</if>
+ 
+		<if test="sellMonth !=null">
+    		 and sell_month in
+    		 <foreach collection="sellMonth" item="listItem" open="(" close=")" separator="," >
+                 #{listItem}
+             </foreach>
+    	</if>
+			
+			AND asset_family = 2 and is_published = 1
+ 
+		</where>
+	 
+ 
+	</select>
+ 
+ 
+	<select id="searchReportConfirm" resultType="resultMap">
+		SELECT
+			r.*, c.email
+		FROM
+			report_dataconfirm r
+		LEFT JOIN contact c ON c.provider_id = r.provider_id
+		
+		<where>
+			<if test="reportMonth != null">
+				report_month = #{reportMonth}
+			</if>
+			<if test="isPublished != null">
+				and is_published = #{isPublished}
+			</if>
+			<if test="isConfirmed != null">
+				and is_confirmed = #{isConfirmed}
+			</if>
+			<if test="providerId != null">
+				and r.provider_id = #{providerId}
+			</if>
+			<if test="providerName != null">
+				and provider_name  like concat('%',#{providerName},'%')
+			</if>
+			<if test="contractName != null">
+				and contract_name  like concat('%',#{contractName},'%')
+			</if>
+			<if test=" isDefault != null">
+				and c.is_default = #{isDefault}
+			</if>
+			
+			 
+ 
+		</where>
+		
+		order by r.report_month desc
+	</select>
+	 
+</mapper>

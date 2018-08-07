@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.vcg.provider.dao.ResourceUploadDao" >
+  <resultMap id="BaseResultMap" type="com.vcg.provider.model.ResourceUpload" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="provider_id" property="providerId" jdbcType="INTEGER" />
+    <result column="batch_id" property="batchId" jdbcType="INTEGER" />
+    <result column="asset_family" property="assetFamily" jdbcType="INTEGER" />
+    <result column="graphical_style" property="graphicalStyle" jdbcType="INTEGER" />
+    <result column="collection" property="collection" jdbcType="VARCHAR" />
+    <result column="caption" property="caption" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="license_type" property="licenseType" jdbcType="INTEGER" />
+    <result column="keywords" property="keywords" jdbcType="VARCHAR" />
+    <result column="have_model_release" property="haveModelRelease" jdbcType="INTEGER" />
+    <result column="model_release" property="modelRelease" jdbcType="VARCHAR" />
+    <result column="have_property_release" property="havePropertyRelease" jdbcType="INTEGER" />
+    <result column="property_release" property="propertyRelease" jdbcType="VARCHAR" />
+    <result column="credit_line" property="creditLine" jdbcType="VARCHAR" />
+    <result column="restriction" property="restriction" jdbcType="VARCHAR" />
+    <result column="shoot_date" property="shootDate" jdbcType="DATE" />
+    <result column="shoot_place" property="shootPlace" jdbcType="VARCHAR" />
+    <result column="oss_path" property="ossPath" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="color_type" property="colorType" jdbcType="INTEGER" />
+    <result column="shoot_environment" property="shootEnvironment" jdbcType="INTEGER" />
+    <result column="resource_status" property="resourceStatus" jdbcType="INTEGER" />
+    <result column="person_number" property="personNumber" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+    <result column="can_submit" property="canSubmit" jdbcType="INTEGER" />
+    <result column="reason" property="reason" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, file_name, provider_id, batch_id, asset_family, graphical_style, collection, 
+    caption, title, license_type, keywords, have_model_release, model_release, have_property_release, 
+    property_release, credit_line, restriction, shoot_date, shoot_place, oss_path, url, 
+    color_type, shoot_environment, resource_status, person_number, created_time, updated_time, 
+    can_submit, reason
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.vcg.provider.model.query.ResourceUploadExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List_Dy" />
+    from resource_upload
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from resource_upload
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from resource_upload
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.vcg.provider.model.query.ResourceUploadExample" >
+    delete from resource_upload
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.vcg.provider.model.ResourceUpload" useGeneratedKeys="true" keyProperty="id" >
+    insert into resource_upload (id, file_name, provider_id, 
+      batch_id, asset_family, graphical_style, 
+      collection, caption, title, 
+      license_type, keywords, have_model_release, 
+      model_release, have_property_release, property_release, 
+      credit_line, restriction, shoot_date, 
+      shoot_place, oss_path, url, 
+      color_type, shoot_environment, resource_status, 
+      person_number, created_time, updated_time, 
+      can_submit, reason)
+    values (#{id,jdbcType=INTEGER}, #{fileName,jdbcType=VARCHAR}, #{providerId,jdbcType=INTEGER}, 
+      #{batchId,jdbcType=INTEGER}, #{assetFamily,jdbcType=INTEGER}, #{graphicalStyle,jdbcType=INTEGER}, 
+      #{collection,jdbcType=VARCHAR}, #{caption,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{licenseType,jdbcType=INTEGER}, #{keywords,jdbcType=VARCHAR}, #{haveModelRelease,jdbcType=INTEGER}, 
+      #{modelRelease,jdbcType=VARCHAR}, #{havePropertyRelease,jdbcType=INTEGER}, #{propertyRelease,jdbcType=VARCHAR}, 
+      #{creditLine,jdbcType=VARCHAR}, #{restriction,jdbcType=VARCHAR}, #{shootDate,jdbcType=DATE}, 
+      #{shootPlace,jdbcType=VARCHAR}, #{ossPath,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{colorType,jdbcType=INTEGER}, #{shootEnvironment,jdbcType=INTEGER}, #{resourceStatus,jdbcType=INTEGER}, 
+      #{personNumber,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, 
+      #{canSubmit,jdbcType=INTEGER}, #{reason,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.vcg.provider.model.ResourceUpload" useGeneratedKeys="true" keyProperty="id" >
+    insert into resource_upload
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fileName != null" >
+        file_name,
+      </if>
+      <if test="providerId != null" >
+        provider_id,
+      </if>
+      <if test="batchId != null" >
+        batch_id,
+      </if>
+      <if test="assetFamily != null" >
+        asset_family,
+      </if>
+      <if test="graphicalStyle != null" >
+        graphical_style,
+      </if>
+      <if test="collection != null" >
+        collection,
+      </if>
+      <if test="caption != null" >
+        caption,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="licenseType != null" >
+        license_type,
+      </if>
+      <if test="keywords != null" >
+        keywords,
+      </if>
+      <if test="haveModelRelease != null" >
+        have_model_release,
+      </if>
+      <if test="modelRelease != null" >
+        model_release,
+      </if>
+      <if test="havePropertyRelease != null" >
+        have_property_release,
+      </if>
+      <if test="propertyRelease != null" >
+        property_release,
+      </if>
+      <if test="creditLine != null" >
+        credit_line,
+      </if>
+      <if test="restriction != null" >
+        restriction,
+      </if>
+      <if test="shootDate != null" >
+        shoot_date,
+      </if>
+      <if test="shootPlace != null" >
+        shoot_place,
+      </if>
+      <if test="ossPath != null" >
+        oss_path,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="colorType != null" >
+        color_type,
+      </if>
+      <if test="shootEnvironment != null" >
+        shoot_environment,
+      </if>
+      <if test="resourceStatus != null" >
+        resource_status,
+      </if>
+      <if test="personNumber != null" >
+        person_number,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="canSubmit != null" >
+        can_submit,
+      </if>
+      <if test="reason != null" >
+        reason,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="providerId != null" >
+        #{providerId,jdbcType=INTEGER},
+      </if>
+      <if test="batchId != null" >
+        #{batchId,jdbcType=INTEGER},
+      </if>
+      <if test="assetFamily != null" >
+        #{assetFamily,jdbcType=INTEGER},
+      </if>
+      <if test="graphicalStyle != null" >
+        #{graphicalStyle,jdbcType=INTEGER},
+      </if>
+      <if test="collection != null" >
+        #{collection,jdbcType=VARCHAR},
+      </if>
+      <if test="caption != null" >
+        #{caption,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseType != null" >
+        #{licenseType,jdbcType=INTEGER},
+      </if>
+      <if test="keywords != null" >
+        #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="haveModelRelease != null" >
+        #{haveModelRelease,jdbcType=INTEGER},
+      </if>
+      <if test="modelRelease != null" >
+        #{modelRelease,jdbcType=VARCHAR},
+      </if>
+      <if test="havePropertyRelease != null" >
+        #{havePropertyRelease,jdbcType=INTEGER},
+      </if>
+      <if test="propertyRelease != null" >
+        #{propertyRelease,jdbcType=VARCHAR},
+      </if>
+      <if test="creditLine != null" >
+        #{creditLine,jdbcType=VARCHAR},
+      </if>
+      <if test="restriction != null" >
+        #{restriction,jdbcType=VARCHAR},
+      </if>
+      <if test="shootDate != null" >
+        #{shootDate,jdbcType=DATE},
+      </if>
+      <if test="shootPlace != null" >
+        #{shootPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="ossPath != null" >
+        #{ossPath,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="colorType != null" >
+        #{colorType,jdbcType=INTEGER},
+      </if>
+      <if test="shootEnvironment != null" >
+        #{shootEnvironment,jdbcType=INTEGER},
+      </if>
+      <if test="resourceStatus != null" >
+        #{resourceStatus,jdbcType=INTEGER},
+      </if>
+      <if test="personNumber != null" >
+        #{personNumber,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="canSubmit != null" >
+        #{canSubmit,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" resultType="java.lang.Integer" parameterType="com.vcg.provider.model.query.ResourceUploadExample" >
+    select count(*) from resource_upload
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update resource_upload
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.fileName != null" >
+        file_name = #{record.fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.providerId != null" >
+        provider_id = #{record.providerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.batchId != null" >
+        batch_id = #{record.batchId,jdbcType=INTEGER},
+      </if>
+      <if test="record.assetFamily != null" >
+        asset_family = #{record.assetFamily,jdbcType=INTEGER},
+      </if>
+      <if test="record.graphicalStyle != null" >
+        graphical_style = #{record.graphicalStyle,jdbcType=INTEGER},
+      </if>
+      <if test="record.collection != null" >
+        collection = #{record.collection,jdbcType=VARCHAR},
+      </if>
+      <if test="record.caption != null" >
+        caption = #{record.caption,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.licenseType != null" >
+        license_type = #{record.licenseType,jdbcType=INTEGER},
+      </if>
+      <if test="record.keywords != null" >
+        keywords = #{record.keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="record.haveModelRelease != null" >
+        have_model_release = #{record.haveModelRelease,jdbcType=INTEGER},
+      </if>
+      <if test="record.modelRelease != null" >
+        model_release = #{record.modelRelease,jdbcType=VARCHAR},
+      </if>
+      <if test="record.havePropertyRelease != null" >
+        have_property_release = #{record.havePropertyRelease,jdbcType=INTEGER},
+      </if>
+      <if test="record.propertyRelease != null" >
+        property_release = #{record.propertyRelease,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creditLine != null" >
+        credit_line = #{record.creditLine,jdbcType=VARCHAR},
+      </if>
+      <if test="record.restriction != null" >
+        restriction = #{record.restriction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shootDate != null" >
+        shoot_date = #{record.shootDate,jdbcType=DATE},
+      </if>
+      <if test="record.shootPlace != null" >
+        shoot_place = #{record.shootPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ossPath != null" >
+        oss_path = #{record.ossPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null" >
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.colorType != null" >
+        color_type = #{record.colorType,jdbcType=INTEGER},
+      </if>
+      <if test="record.shootEnvironment != null" >
+        shoot_environment = #{record.shootEnvironment,jdbcType=INTEGER},
+      </if>
+      <if test="record.resourceStatus != null" >
+        resource_status = #{record.resourceStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.personNumber != null" >
+        person_number = #{record.personNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdTime != null" >
+        created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedTime != null" >
+        updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.canSubmit != null" >
+        can_submit = #{record.canSubmit,jdbcType=INTEGER},
+      </if>
+      <if test="record.reason != null" >
+        reason = #{record.reason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update resource_upload
+    set id = #{record.id,jdbcType=INTEGER},
+      file_name = #{record.fileName,jdbcType=VARCHAR},
+      provider_id = #{record.providerId,jdbcType=INTEGER},
+      batch_id = #{record.batchId,jdbcType=INTEGER},
+      asset_family = #{record.assetFamily,jdbcType=INTEGER},
+      graphical_style = #{record.graphicalStyle,jdbcType=INTEGER},
+      collection = #{record.collection,jdbcType=VARCHAR},
+      caption = #{record.caption,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      license_type = #{record.licenseType,jdbcType=INTEGER},
+      keywords = #{record.keywords,jdbcType=VARCHAR},
+      have_model_release = #{record.haveModelRelease,jdbcType=INTEGER},
+      model_release = #{record.modelRelease,jdbcType=VARCHAR},
+      have_property_release = #{record.havePropertyRelease,jdbcType=INTEGER},
+      property_release = #{record.propertyRelease,jdbcType=VARCHAR},
+      credit_line = #{record.creditLine,jdbcType=VARCHAR},
+      restriction = #{record.restriction,jdbcType=VARCHAR},
+      shoot_date = #{record.shootDate,jdbcType=DATE},
+      shoot_place = #{record.shootPlace,jdbcType=VARCHAR},
+      oss_path = #{record.ossPath,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR},
+      color_type = #{record.colorType,jdbcType=INTEGER},
+      shoot_environment = #{record.shootEnvironment,jdbcType=INTEGER},
+      resource_status = #{record.resourceStatus,jdbcType=INTEGER},
+      person_number = #{record.personNumber,jdbcType=INTEGER},
+      created_time = #{record.createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
+      can_submit = #{record.canSubmit,jdbcType=INTEGER},
+      reason = #{record.reason,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.vcg.provider.model.ResourceUpload" >
+    update resource_upload
+    <set >
+      <if test="fileName != null" >
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="providerId != null" >
+        provider_id = #{providerId,jdbcType=INTEGER},
+      </if>
+      <if test="batchId != null" >
+        batch_id = #{batchId,jdbcType=INTEGER},
+      </if>
+      <if test="assetFamily != null" >
+        asset_family = #{assetFamily,jdbcType=INTEGER},
+      </if>
+      <if test="graphicalStyle != null" >
+        graphical_style = #{graphicalStyle,jdbcType=INTEGER},
+      </if>
+      <if test="collection != null" >
+        collection = #{collection,jdbcType=VARCHAR},
+      </if>
+      <if test="caption != null" >
+        caption = #{caption,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseType != null" >
+        license_type = #{licenseType,jdbcType=INTEGER},
+      </if>
+      <if test="keywords != null" >
+        keywords = #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="haveModelRelease != null" >
+        have_model_release = #{haveModelRelease,jdbcType=INTEGER},
+      </if>
+      <if test="modelRelease != null" >
+        model_release = #{modelRelease,jdbcType=VARCHAR},
+      </if>
+      <if test="havePropertyRelease != null" >
+        have_property_release = #{havePropertyRelease,jdbcType=INTEGER},
+      </if>
+      <if test="propertyRelease != null" >
+        property_release = #{propertyRelease,jdbcType=VARCHAR},
+      </if>
+      <if test="creditLine != null" >
+        credit_line = #{creditLine,jdbcType=VARCHAR},
+      </if>
+      <if test="restriction != null" >
+        restriction = #{restriction,jdbcType=VARCHAR},
+      </if>
+      <if test="shootDate != null" >
+        shoot_date = #{shootDate,jdbcType=DATE},
+      </if>
+      <if test="shootPlace != null" >
+        shoot_place = #{shootPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="ossPath != null" >
+        oss_path = #{ossPath,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="colorType != null" >
+        color_type = #{colorType,jdbcType=INTEGER},
+      </if>
+      <if test="shootEnvironment != null" >
+        shoot_environment = #{shootEnvironment,jdbcType=INTEGER},
+      </if>
+      <if test="resourceStatus != null" >
+        resource_status = #{resourceStatus,jdbcType=INTEGER},
+      </if>
+      <if test="personNumber != null" >
+        person_number = #{personNumber,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="canSubmit != null" >
+        can_submit = #{canSubmit,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null" >
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.vcg.provider.model.ResourceUpload" >
+    update resource_upload
+    set file_name = #{fileName,jdbcType=VARCHAR},
+      provider_id = #{providerId,jdbcType=INTEGER},
+      batch_id = #{batchId,jdbcType=INTEGER},
+      asset_family = #{assetFamily,jdbcType=INTEGER},
+      graphical_style = #{graphicalStyle,jdbcType=INTEGER},
+      collection = #{collection,jdbcType=VARCHAR},
+      caption = #{caption,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      license_type = #{licenseType,jdbcType=INTEGER},
+      keywords = #{keywords,jdbcType=VARCHAR},
+      have_model_release = #{haveModelRelease,jdbcType=INTEGER},
+      model_release = #{modelRelease,jdbcType=VARCHAR},
+      have_property_release = #{havePropertyRelease,jdbcType=INTEGER},
+      property_release = #{propertyRelease,jdbcType=VARCHAR},
+      credit_line = #{creditLine,jdbcType=VARCHAR},
+      restriction = #{restriction,jdbcType=VARCHAR},
+      shoot_date = #{shootDate,jdbcType=DATE},
+      shoot_place = #{shootPlace,jdbcType=VARCHAR},
+      oss_path = #{ossPath,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      color_type = #{colorType,jdbcType=INTEGER},
+      shoot_environment = #{shootEnvironment,jdbcType=INTEGER},
+      resource_status = #{resourceStatus,jdbcType=INTEGER},
+      person_number = #{personNumber,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      can_submit = #{canSubmit,jdbcType=INTEGER},
+      reason = #{reason,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <sql id="Base_Column_List_Dy" >
+    <if test="fields==null" >
+      <include refid="Base_Column_List" />
+    </if>
+    <if test="fields!=null" >
+      <foreach collection="fields" item="field" separator="," >
+        ${field}
+      </foreach>
+    </if>
+  </sql>
+</mapper>
